@@ -4,10 +4,7 @@ import './App.css'
 import { RootState } from './store/store';
 import {  useSelector } from 'react-redux';
 import { ConnectToServer, disconnectFromServer } from './socket/socket';
-
-import ConnectionState from './components/ConnectionState';
-import MessageForm from './components/MessageForm';
-import MessageList from './components/MessageList';
+import Main from './pages/Main';
 
 function App() {
     
@@ -24,9 +21,7 @@ function App() {
    
   return (
     <>
-      <ConnectionState/>
-      <MessageForm/>
-      <MessageList/>
+      <Main/>
     </>
   )
 }
