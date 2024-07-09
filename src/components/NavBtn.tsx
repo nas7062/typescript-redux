@@ -1,9 +1,11 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 interface NavBtnProps {
-    img :string,
-    text:string,
+    img: string,
+    text: string,
+    lk:string,
 }
 const Nbtn = styled.div`
     width:50px;
@@ -19,12 +21,14 @@ const Nbtn = styled.div`
     }
     
 `
-const NavBtn :React.FC<NavBtnProps>= ({img,text}) =>{
+const NavBtn: React.FC<NavBtnProps> = ({ img, text ,lk }) => {
 
-    return(
+    return (
         <Nbtn>
+            <Link to={`/${lk}`}>
             <img src={img} alt="" />
             <p>{text}</p>
+            </Link>
         </Nbtn>
     );
 }

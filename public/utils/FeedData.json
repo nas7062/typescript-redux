@@ -1,34 +1,170 @@
 {
-    "data" :[
+    "feed": [
         {
-            "id" : 1,
-            "img" : "./assets/1.png",
-            "tag" : ["New","Hot"],
-            "title" : "Feed1",
-            "location" : "인천 광역시 서구 봉오재 1로"
+            "id": 1,
+            "img": "./assets/1.png",
+            "tag": [
+                "New",
+                "Hot"
+            ],
+            "title": "Feed1",
+            "location": "인천 광역시 서구 봉오재 1로"
         },
         {
-            "id" : 2,
-            "img" : "./assets/1.png",
-            "tag" : ["New","Hot"],
-            "title" : "Feed1",
-            "location" : "인천 광역시 서구 봉오재 1로"
+            "id": 2,
+            "img": "./assets/1.png",
+            "tag": [
+                "New",
+                "Hot"
+            ],
+            "title": "Feed2",
+            "location": "인천 광역시 서구 봉오재 1로"
         },
         {
-            "id" : 3,
-            "img" : "./assets/1.png",
-            "tag" : ["New","Hot"],
-            "title" : "Feed1",
-            "location" : "인천 광역시 서구 봉오재 1로"
+            "id": 3,
+            "img": "./assets/1.png",
+            "tag": [
+                "New",
+                "Hot"
+            ],
+            "title": "Feed3",
+            "location": "인천 광역시 서구 봉오재 1로"
         },
         {
-            "id" : 4,
-            "img" : "./assets/1.png",
-            "tag" : ["New","Hot"],
-            "title" : "Feed1",
-            "location" : "인천 광역시 서구 봉오재 1로"
+            "id": 4,
+            "img": "./assets/1.png",
+            "tag": [
+                "New",
+                "Hot"
+            ],
+            "title": "Feed4",
+            "location": "인천 광역시 서구 봉오재 1로"
+        },
+        {
+            "id": 5,
+            "img": "./assets/1.png",
+            "tag": [
+                "New",
+                "Hot"
+            ],
+            "title": "Feed1",
+            "location": "인천 광역시 서구 봉오재 1로"
+        },
+        {
+            "id": 6,
+            "img": "./assets/1.png",
+            "tag": [
+                "New",
+                "Hot"
+            ],
+            "title": "Feed2",
+            "location": "인천 광역시 서구 봉오재 1로"
+        },
+        {
+            "id": 7,
+            "img": "./assets/1.png",
+            "tag": [
+                "New",
+                "Hot"
+            ],
+            "title": "Feed3",
+            "location": "인천 광역시 서구 봉오재 1로"
+        },
+        {
+            "id": 8,
+            "img": "./assets/1.png",
+            "tag": [
+                "New",
+                "Hot"
+            ],
+            "title": "Feed4",
+            "location": "인천 광역시 서구 봉오재 1로"
+        }
+    ],
+    "study" :[
+        {
+            "id": 1,
+            "img": "./assets/2.png",
+            "tag": [
+                "New",
+                "Hot"
+            ],
+            "title": "Feed1",
+            "location": "인천 광역시 서구 봉오재 1로"
+        },
+        {
+            "id": 2,
+            "img": "./assets/3.png",
+            "tag": [
+                "New",
+                "Hot"
+            ],
+            "title": "Feed2",
+            "location": "인천 광역시 서구 봉오재 1로"
+        },
+        {
+            "id": 3,
+            "img": "./assets/4.png",
+            "tag": [
+                "New",
+                "Hot"
+            ],
+            "title": "Feed3",
+            "location": "인천 광역시 서구 봉오재 1로"
+        },
+        {
+            "id": 4,
+            "img": "./assets/5.png",
+            "tag": [
+                "New",
+                "Hot"
+            ],
+            "title": "Feed4",
+            "location": "인천 광역시 서구 봉오재 1로"
+        }
+    ],
+    "goal" :[
+        {
+            "id": 1,
+            "img": "./assets/6.png",
+            "tag": [
+                "New",
+                "Hot"
+            ],
+            "title": "Feed1",
+            "location": "인천 광역시 서구 봉오재 1로"
+        },
+        {
+            "id": 2,
+            "img": "./assets/7.png",
+            "tag": [
+                "New",
+                "Hot"
+            ],
+            "title": "Feed2",
+            "location": "인천 광역시 서구 봉오재 1로"
+        },
+        {
+            "id": 3,
+            "img": "./assets/8.png",
+            "tag": [
+                "New",
+                "Hot"
+            ],
+            "title": "Feed3",
+            "location": "인천 광역시 서구 봉오재 1로"
+        },
+        {
+            "id": 4,
+            "img": "./assets/9.png",
+            "tag": [
+                "New",
+                "Hot"
+            ],
+            "title": "Feed4",
+            "location": "인천 광역시 서구 봉오재 1로"
         }
 
-
     ]
+
 }

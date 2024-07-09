@@ -5,11 +5,14 @@ import { RootState } from './store/store';
 import {  useSelector } from 'react-redux';
 import { ConnectToServer, disconnectFromServer } from './socket/socket';
 import Main from './pages/Main';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Feed from './pages/Feed';
+
 
 function App() {
     
     const {username,isConnect} = useSelector((state:RootState)=>state.chat);
-
+    
     useEffect(()=>{
         if(isConnect && username){
           ConnectToServer(username);
@@ -18,10 +21,17 @@ function App() {
           disconnectFromServer();
         }
     },[isConnect,username])  
+  
+
    
   return (
     <>
-      <Main/>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={ <Main/>}/>
+        <Route path='/feed' element={ <Feed/>}/>
+     </Routes>
+     </BrowserRouter>
     </>
   )
 }

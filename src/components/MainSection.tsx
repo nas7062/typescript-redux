@@ -16,10 +16,10 @@ const Msec = styled.div<MsecProps>`
     font-size:1.8rem;
 
 `
-const MainSection = () =>{
+const MainSection = () => {
 
-    return(
-        <Msec bgimg ={bgimg} >
+    return (
+        <Msec bgimg={bgimg} >
             <h2>취미가 같은 사람들</h2>
             <h3>관심사가 비슷한 사람들의 커뮤니티 , 10012</h3>
         </Msec>

@@ -1,17 +1,16 @@
 import Card, { CardProps } from "./Card";
 import { useQuery } from '@tanstack/react-query';
-import { fetchDatas } from "./api";
+import { fetchGoal } from "./api";
 import SectionLayout from "./SectionLayout";
 
-const PartSection = () => {
-    const { data } = useQuery<CardProps[]>({ queryKey: ["data"], queryFn: fetchDatas });
+const GoalSection = () => {
+    const { data } = useQuery<CardProps[]>({ queryKey: ["goal"], queryFn: fetchGoal });
     return (
-        <SectionLayout title="피드" subtitle="나의 일상을 피드에 작성해보아요!">
+        <SectionLayout title="챌린지" subtitle="새로운 사람들과 함께 어려운 챌린지에 도전해봐요!">
             {Array.isArray(data) &&
                 data.slice(0,4).map((item: CardProps) => <Card key={item.id} {...item} />)}
         </SectionLayout>
     );
 
-
 }
-export default PartSection;
+export default GoalSection;

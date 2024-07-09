@@ -5,6 +5,9 @@ import feed from "../../public/assets/feed.png"
 import msg from "../../public/assets/message.png"
 import heart from "../../public/assets/heart.png"
 import my from "../../public/assets/my.png"
+import meet from "../../public/assets/meet.png"
+import goal from "../../public/assets/goal.png"
+import { Link } from "react-router-dom";
 const TopBar = styled.div`
     
     margin-top:-10px;
@@ -49,8 +52,8 @@ const NavBar = styled.div`
     }
     
 `
-const Header :React.FC= () =>{
-    return(
+const Header: React.FC = () => {
+    return (
         <div>
             <TopBar>
                 <ul>
@@ -60,15 +63,16 @@ const Header :React.FC= () =>{
                 </ul>
             </TopBar>
             <NavBar>
-                <h2>10012</h2>
+                <h2><Link to={"/"}>10012</Link></h2>
                 <input type="text" placeholder="지금 생각나는 단어를 검색해봐요!" />
-                <NavBtn img={feed} text="피드"/>
-                <NavBtn img={msg} text="메세지"/>
-                <NavBtn img={heart} text="찜"/>
-                <NavBtn img={my} text="마이"/>
-                
+                <NavBtn img={feed} text="피드"  lk= "feed"/>
+                <NavBtn img={meet} text="스터디"  lk= "feed" />
+                <NavBtn img={goal} text="챌린지"   lk= "feed"/>
+                <NavBtn img={msg} text="메세지"  lk= "feed"/>
+                <NavBtn img={heart} text="찜"  lk= "feed"/>
+                <NavBtn img={my} text="마이" lk= "feed" />
             </NavBar>
-            
+
         </div>
     );
 }
