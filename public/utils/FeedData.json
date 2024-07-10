@@ -2,7 +2,7 @@
     "feed": [
         {
             "id": 1,
-            "img": "./assets/1.png",
+            "img": "/assets/1.png",
             "tag": [
                 "New",
                 "Hot"
@@ -12,7 +12,7 @@
         },
         {
             "id": 2,
-            "img": "./assets/1.png",
+            "img": "/assets/1.png",
             "tag": [
                 "New",
                 "Hot"
@@ -22,7 +22,7 @@
         },
         {
             "id": 3,
-            "img": "./assets/1.png",
+            "img": "/assets/1.png",
             "tag": [
                 "New",
                 "Hot"
@@ -32,7 +32,7 @@
         },
         {
             "id": 4,
-            "img": "./assets/1.png",
+            "img": "/assets/1.png",
             "tag": [
                 "New",
                 "Hot"
@@ -42,7 +42,7 @@
         },
         {
             "id": 5,
-            "img": "./assets/1.png",
+            "img": "/assets/1.png",
             "tag": [
                 "New",
                 "Hot"
@@ -52,7 +52,7 @@
         },
         {
             "id": 6,
-            "img": "./assets/1.png",
+            "img": "/assets/1.png",
             "tag": [
                 "New",
                 "Hot"
@@ -62,7 +62,7 @@
         },
         {
             "id": 7,
-            "img": "./assets/1.png",
+            "img": "/assets/1.png",
             "tag": [
                 "New",
                 "Hot"
@@ -72,7 +72,7 @@
         },
         {
             "id": 8,
-            "img": "./assets/1.png",
+            "img": "/assets/1.png",
             "tag": [
                 "New",
                 "Hot"
@@ -84,7 +84,7 @@
     "study" :[
         {
             "id": 1,
-            "img": "./assets/2.png",
+            "img": "/assets/2.png",
             "tag": [
                 "New",
                 "Hot"
@@ -94,7 +94,7 @@
         },
         {
             "id": 2,
-            "img": "./assets/3.png",
+            "img": "/assets/3.png",
             "tag": [
                 "New",
                 "Hot"
@@ -104,7 +104,7 @@
         },
         {
             "id": 3,
-            "img": "./assets/4.png",
+            "img": "/assets/4.png",
             "tag": [
                 "New",
                 "Hot"
@@ -114,7 +114,7 @@
         },
         {
             "id": 4,
-            "img": "./assets/5.png",
+            "img": "/assets/5.png",
             "tag": [
                 "New",
                 "Hot"
@@ -126,7 +126,7 @@
     "goal" :[
         {
             "id": 1,
-            "img": "./assets/6.png",
+            "img": "/assets/6.png",
             "tag": [
                 "New",
                 "Hot"
@@ -136,7 +136,7 @@
         },
         {
             "id": 2,
-            "img": "./assets/7.png",
+            "img": "/assets/7.png",
             "tag": [
                 "New",
                 "Hot"
@@ -146,7 +146,7 @@
         },
         {
             "id": 3,
-            "img": "./assets/8.png",
+            "img": "/assets/8.png",
             "tag": [
                 "New",
                 "Hot"
@@ -156,7 +156,7 @@
         },
         {
             "id": 4,
-            "img": "./assets/9.png",
+            "img": "/assets/9.png",
             "tag": [
                 "New",
                 "Hot"

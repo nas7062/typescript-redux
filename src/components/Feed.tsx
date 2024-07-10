@@ -40,13 +40,14 @@ const CardSec = styled.div`
 `
 const Feed :React.FC<CardProps> = ({ id, img, tag, title, location })=>{
 
+   
     return(
-        <CardSec key={id} className="card">
+        <CardSec key={id} >
         <img src={img} alt={title} />
         <h2 >{title}</h2>
         <p >{location}</p>
         {tag.map((t: string, idx: number) => (
-            <span key={idx} className="card-tag">{t}</span>
+            <span key={idx}>{t}</span>
         ))}
     </CardSec>
 

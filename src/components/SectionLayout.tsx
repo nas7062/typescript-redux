@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const FeedSec = styled.div`
@@ -37,8 +38,13 @@ interface LayoutProps {
     children: React.ReactNode;
     title: string;
     subtitle: string;
+    link :string
 }
-const SectionLayout: React.FC<LayoutProps> = ({ children, title, subtitle }) => {
+const SectionLayout: React.FC<LayoutProps> = ({ children, title, subtitle ,link }) => {
+    const navigate = useNavigate();
+    const MoveHandler =() =>{
+        navigate(`${link}`);
+    }
     return (
         <PartSec>
             <Text>
@@ -46,7 +52,7 @@ const SectionLayout: React.FC<LayoutProps> = ({ children, title, subtitle }) => 
                 <h2>{subtitle}</h2>
             </Text>
             <FeedSec>{children}</FeedSec>
-            <button>더보기</button>
+            <button onClick={MoveHandler}>더보기</button>
         </PartSec>
     );
 }

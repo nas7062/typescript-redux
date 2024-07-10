@@ -7,6 +7,7 @@ import { ConnectToServer, disconnectFromServer } from './socket/socket';
 import Main from './pages/Main';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Feed from './pages/Feed';
+import FeedDetail from './pages/FeedDetail';
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
       <Routes>
         <Route path='/' element={ <Main/>}/>
         <Route path='/feed' element={ <Feed/>}/>
+        <Route path='/feed/:id' element={ <FeedDetail/>}/>
      </Routes>
      </BrowserRouter>
     </>

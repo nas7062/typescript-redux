@@ -27,7 +27,7 @@ io.on('connection', (client)=>{
     })
 });
 
-server.listen(3000, ()=>{
+server.listen( 3000, ()=>{
     console.log("서버 연결.. ,3000");
 });
 
