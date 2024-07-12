@@ -1,11 +1,11 @@
 import { useState } from "react";
-import FeedList from "../components/FeedList";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import styled from "styled-components";
 import { CardProps } from "../components/Card";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { fetchFeeds, addFeed, uploadImage } from "../components/api";
+import {   uploadImage, fetchChals, addChallenge } from "../components/api";
+import GoalList from "../components/GoalList";
 const FeedSec = styled.div`
     
     h2{
@@ -46,7 +46,7 @@ const FormGroup = styled.div`
     }
 `
 
-const Feed = () => {
+const Challenge = () => {
     const [isFormVisible, setFormVisible] = useState(false);
     const [formData, setFormData] = useState<Omit<CardProps, 'id'> & { img2: File | undefined }>({
         img: "",
@@ -59,17 +59,17 @@ const Feed = () => {
     const queryClient = useQueryClient();
 
     const { data } = useQuery<CardProps[]>({
-        queryKey: ["feeds"],
-        queryFn: fetchFeeds,
+        queryKey: ["challenges"],
+        queryFn: fetchChals,
     });
 
-
+    console.log(data);
     const mutation = useMutation({
         mutationFn: async () => {
             try {
                 if (formData.img2) {
                     const imgUrl = await uploadImage(formData.img2);
-                    await addFeed({ ...formData, img: imgUrl });
+                    await addChallenge({ ...formData, img: imgUrl });
                 } else {
                     throw new Error("No image selected");
                 }
@@ -80,7 +80,7 @@ const Feed = () => {
             }
         },
         onSuccess: () => {
-            queryClient.invalidateQueries("feeds");
+            queryClient.invalidateQueries("challenges");
             setFormData({ ...formData, img2: undefined, tag: [], title: "", location: "" });
             setFormVisible(false);
         },
@@ -94,12 +94,13 @@ const Feed = () => {
         if (file) {
             setFormData({ ...formData, img2: file });
         }
+       
     };
+    
     const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
             await mutation.mutateAsync();
-
         } catch (error) {
             console.error("Failed to submit form:", error);
         }
@@ -108,8 +109,8 @@ const Feed = () => {
         <>
             <Header />
             <FeedSec>
-                <h2>피드</h2>
-                <button onClick={() => setFormVisible(!isFormVisible)}>피드 작성하기</button>
+                <h2>챌린지</h2>
+                <button onClick={() => setFormVisible(!isFormVisible)}>챌린지 작성하기</button>
                 {isFormVisible && (
                     <FormContainer>
                         <form onSubmit={handleFormSubmit}>
@@ -164,12 +165,13 @@ const Feed = () => {
                             <button type="submit">제출</button>
                         </form>
                     </FormContainer>
+                    
                 )}
-                <FeedList feeds={data || []} />
+                <GoalList goals={data || []}/>
             </FeedSec>
             <Footer />
         </>
     );
 }
 
-export default Feed;
+export default Challenge;

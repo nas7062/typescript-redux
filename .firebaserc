@@ -1,0 +1,9 @@
+{
+  "projects": {
+    "default": "typereudx",
+    "y": "typereudx"
+  },
+  "targets": {},
+  "etags": {},
+  "dataconnectEmulatorConfig": {}
+}

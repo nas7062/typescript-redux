@@ -1,9 +1,10 @@
-declare module "firebaseConfig" {
-    import { Firestore } from "firebase/firestore";
-    import { FirebaseApp } from "firebase/app";
+import { Firestore as FirestoreType } from 'firebase/firestore';
 
-    const app: FirebaseApp;
-    const db: Firestore;
-
-    export { app, db };
+declare module 'firebase/firestore' {
+    export interface Firestore extends FirestoreType {
+        collection: (path: string) => CollectionReference;
+    }
+    export interface CollectionReference {
+        add: (data: any) => Promise<any>;
+    }
 }

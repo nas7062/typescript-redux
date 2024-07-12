@@ -8,6 +8,9 @@ import Main from './pages/Main';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Feed from './pages/Feed';
 import FeedDetail from './pages/FeedDetail';
+import FeedDetail2 from './pages/FeedDetail2';
+import Challenge from './pages/Challenge';
+import GoalDetail from './pages/GoalDetail';
 
 
 function App() {
@@ -31,7 +34,10 @@ function App() {
       <Routes>
         <Route path='/' element={ <Main/>}/>
         <Route path='/feed' element={ <Feed/>}/>
+        <Route path='/ch' element={ <Challenge/>}/>
         <Route path='/feed/:id' element={ <FeedDetail/>}/>
+        <Route path='/chal/:id' element={ <GoalDetail/>}/>
+        <Route path='/feeds/:id' element={ <FeedDetail2/>}/>
      </Routes>
      </BrowserRouter>
     </>

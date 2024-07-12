@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { useParams } from "react-router-dom";
 import { CardProps } from "../components/Card";
-import { fetchDatas } from "../components/api";
+import { fetchDatas, fetchGoal } from "../components/api";
 import styled from "styled-components";
 
 const DetailContainer = styled.div`
@@ -35,12 +35,12 @@ const DetailContainer = styled.div`
     }
 `;
 
-const FeedDetail: React.FC = () => {
+const GoalDetail: React.FC = () => {
 
     const { id } = useParams<{ id: string }>();
     const { data } = useQuery<CardProps[]>({
-        queryKey: ["data"],
-        queryFn: fetchDatas,
+        queryKey: ["goal"],
+        queryFn: fetchGoal,
     });
 
     const feed = data?.find(item => item.id === parseInt(id!));
@@ -61,4 +61,4 @@ const FeedDetail: React.FC = () => {
     );
 }
 
-export default FeedDetail;
+export default GoalDetail;

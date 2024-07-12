@@ -10,6 +10,7 @@ const CardSec = styled.div`
     margin-right:30px;
     background-color:white;
     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    margin-top:50px;
     img{
         width:300px;
         height:200px;

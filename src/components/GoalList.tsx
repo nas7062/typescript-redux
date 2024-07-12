@@ -1,7 +1,7 @@
 import React from "react";
 import { CardProps } from "./Card";
 import { useQuery  } from "@tanstack/react-query";
-import { fetchDatas } from "./api";
+import {  fetchGoal } from "./api";
 import Feed from "./Feed";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
@@ -13,25 +13,24 @@ const Feedlist = styled.div`
     display:block;
 `
 
-const FeedList :React.FC<{feeds:CardProps[]}> = ({feeds }) =>{
-    const { data} = useQuery<CardProps[]>({ queryKey: ["data"], queryFn: fetchDatas });
+const GoalList :React.FC<{goals:CardProps[]}> = ({goals}) =>{
+    const { data} = useQuery<CardProps[]>({ queryKey: ["chal"], queryFn: fetchGoal });
     
-    console.log(feeds);
     return( 
         <Feedlist>
               {Array.isArray(data) &&
                 data.map((item: CardProps) =>(
-                <Link key={item.id} to={`/feed/${item.id}`} >
+                <Link key={item.id} to={`/chal/${item.id}`} >
                 <Feed {...item}/>
                 </Link>
             ))}
-             {feeds.map((feed) => (
-                <Link key={feed.id} to={`/feeds/${feed.id}`} >
-                <Feed {...feed}/>
+             {goals.map((go) => (
+                <Link key={go.id} to={`/chals/${go.id}`} >
+                <Feed {...go}/>
                 </Link>
             ))}
         </Feedlist>
     );
 }
 
-export default FeedList;
+export default GoalList;

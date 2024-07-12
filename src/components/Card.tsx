@@ -2,12 +2,12 @@ import React from "react";
 import styled from "styled-components";
 
 export interface CardProps {
-    id: number,
-    img: string,
+    id: number | string,
+    img?: string,
+    img2?: File ,
     tag: string[],
     title: string,
     location: string,
-
 }
 const CardSec = styled.div`
 
