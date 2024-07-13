@@ -11,6 +11,7 @@ import FeedDetail from './pages/FeedDetail';
 import FeedDetail2 from './pages/FeedDetail2';
 import Challenge from './pages/Challenge';
 import GoalDetail from './pages/GoalDetail';
+import GoalDetail2 from './pages/GoalDetail2';
 
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
         <Route path='/feed/:id' element={ <FeedDetail/>}/>
         <Route path='/chal/:id' element={ <GoalDetail/>}/>
         <Route path='/feeds/:id' element={ <FeedDetail2/>}/>
+        <Route path='/chals/:id' element={ <GoalDetail2/>}/>
      </Routes>
      </BrowserRouter>
     </>
