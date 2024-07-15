@@ -12,6 +12,9 @@ import FeedDetail2 from './pages/FeedDetail2';
 import Challenge from './pages/Challenge';
 import GoalDetail from './pages/GoalDetail';
 import GoalDetail2 from './pages/GoalDetail2';
+import Study from './pages/Study';
+import StudyDetail from './pages/StudyDetail';
+import StudyDetail2 from './pages/StudyDetail2';
 
 
 function App() {
@@ -36,10 +39,13 @@ function App() {
         <Route path='/' element={ <Main/>}/>
         <Route path='/feed' element={ <Feed/>}/>
         <Route path='/ch' element={ <Challenge/>}/>
+        <Route path='/study' element={ <Study/>}/>
         <Route path='/feed/:id' element={ <FeedDetail/>}/>
         <Route path='/chal/:id' element={ <GoalDetail/>}/>
         <Route path='/feeds/:id' element={ <FeedDetail2/>}/>
         <Route path='/chals/:id' element={ <GoalDetail2/>}/>
+        <Route path='/study/:id' element={ <StudyDetail/>}/>
+        <Route path='/studys/:id' element={ <StudyDetail2/>}/>
      </Routes>
      </BrowserRouter>
     </>

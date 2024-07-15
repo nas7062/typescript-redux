@@ -40,6 +40,9 @@ export const fetchFeeds = async (): Promise<CardProps[]> => {
 export const fetchChals = async (): Promise<CardProps[]> => {
   return fetchDocuments("challenges");
 };
+export const fetchStudy = async (): Promise<CardProps[]> => {
+  return fetchDocuments("studys");
+};
 
 export const uploadImage = async (file: File): Promise<string> => {
   const storageRef = ref(storage, `images/${file.name}`);
@@ -74,4 +77,7 @@ export const addFeed = async (formData: Omit<CardProps, "id">): Promise<void> =>
 };
 export const addChallenge = async (formData: Omit<CardProps, "id">): Promise<void> => {
   await addDocument("challenges", formData);
+};
+export const addStudys = async (formData: Omit<CardProps, "id">): Promise<void> => {
+  await addDocument("studys", formData);
 };

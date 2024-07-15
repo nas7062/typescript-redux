@@ -66,7 +66,7 @@ const Header: React.FC = () => {
                 <h2><Link to={"/"}>10012</Link></h2>
                 <input type="text" placeholder="지금 생각나는 단어를 검색해봐요!" />
                 <NavBtn img={feed} text="피드"  lk= "feed"/>
-                <NavBtn img={meet} text="스터디"  lk= "feed" />
+                <NavBtn img={meet} text="스터디"  lk= "study" />
                 <NavBtn img={goal} text="챌린지"   lk= "ch"/>
                 <NavBtn img={msg} text="메세지"  lk= "feed"/>
                 <NavBtn img={heart} text="찜"  lk= "feed"/>
