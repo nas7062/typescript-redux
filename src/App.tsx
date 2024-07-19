@@ -15,6 +15,8 @@ import GoalDetail2 from './pages/GoalDetail2';
 import Study from './pages/Study';
 import StudyDetail from './pages/StudyDetail';
 import StudyDetail2 from './pages/StudyDetail2';
+import Auth from './components/Auth';
+import Login from './components/Login';
 
 
 function App() {
@@ -46,6 +48,8 @@ function App() {
         <Route path='/chals/:id' element={ <GoalDetail2/>}/>
         <Route path='/study/:id' element={ <StudyDetail/>}/>
         <Route path='/studys/:id' element={ <StudyDetail2/>}/>
+        <Route path='/auth' element={ <Auth/>}/>
+        <Route path='/login' element={ <Login/>}/>
      </Routes>
      </BrowserRouter>
     </>

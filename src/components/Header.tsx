@@ -8,6 +8,9 @@ import my from "../../public/assets/my.png"
 import meet from "../../public/assets/meet.png"
 import goal from "../../public/assets/goal.png"
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../store/store";
+
 const TopBar = styled.div`
     
     margin-top:-10px;
@@ -53,12 +56,15 @@ const NavBar = styled.div`
     
 `
 const Header: React.FC = () => {
+    const { isAuthenticated } = useSelector((state: RootState) => state.auth);
     return (
         <div>
             <TopBar>
                 <ul>
-                    <li>로그인</li>
-                    <li>회원가입</li>
+                    {isAuthenticated ? <Link to={"/login"}><li>로그인</li></Link>
+                     :<Link to={"/"}><li>로그아웃</li></Link>
+                    }
+                    <Link to={"/auth"}><li>회원가입</li></Link>
                     <li>공지사항</li>
                 </ul>
             </TopBar>

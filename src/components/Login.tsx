@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../store/store';
-import {registerUser} from "../reducer/AuthSlice";
+import { loginUser } from '../reducer/AuthSlice';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
-const RegisterContainer = styled.div`
+import { Link, useNavigate } from 'react-router-dom';
+
+const LoginContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,7 +13,7 @@ const RegisterContainer = styled.div`
   background-color: #f5f5f5;
 `;
 
-const RegisterForm = styled.form`
+const LoginForm = styled.form`
   background: white;
   padding: 50px 100px;
   border-radius: 10px;
@@ -20,15 +21,21 @@ const RegisterForm = styled.form`
   display: flex;
   flex-direction: column;
   gap: 15px;
+
   h2 {
+    text-align:center;
+  }
+  p {
+    font-size:0.8rem;
+    color:grey;
     text-align:center;
   }
 `;
 
 const Input = styled.input`
   padding: 10px;
-  border: 1px solid #ccc;
   width:300px;
+  border: 1px solid #ccc;
   border-radius: 5px;
 `;
 
@@ -43,33 +50,31 @@ const Button = styled.button`
 `;
 
 
-const Auth: React.FC = () => {
+const Login: React.FC = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  const { loading ,isAuthenticated } = useSelector((state: RootState) => state.auth);
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [username, setUsername] = useState('');
-  const navigate = useNavigate();
-  const dispatch = useDispatch<AppDispatch>();
-  const { loading ,user} = useSelector((state: RootState) => state.auth);
 
-  const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(registerUser({ email, password, username }));
+    dispatch(loginUser({ email, password }));
   };
-  
   useEffect(() => {
-    if (user) {
+    if (isAuthenticated) {
       const timeout = setTimeout(() => {
         navigate('/');
       }, 1000);
       return () => clearTimeout(timeout);
     }
-  }, [navigate,user]);
+  }, [navigate,isAuthenticated]);
+
   
-  console.log(user);
   return (
-    <RegisterContainer>
-      <RegisterForm onSubmit={handleRegister}>
-        <h2>회원가입</h2>
+    <LoginContainer>
+      <LoginForm onSubmit={handleLogin}>
+        <h2>로그인</h2>
         <Input
           type="email"
           placeholder="이메일"
@@ -84,19 +89,15 @@ const Auth: React.FC = () => {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <Input
-          type="text"
-          placeholder="사용자 이름"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          required
-        />
-        <Button type="submit" disabled={loading} >
-          {loading ? '회원가입 중...' : '회원가입'}
+        <Button type="submit" disabled={loading}>
+          {loading ? '로그인 중...' : '로그인'}
         </Button>
-      </RegisterForm>
-    </RegisterContainer>
+        <Link to={"/auth"}>
+        <p>아이디가 없으신가요? 회원가입하러 가기</p>
+        </Link>
+      </LoginForm>
+    </LoginContainer>
   );
 };
 
-export default Auth;
+export default Login;
