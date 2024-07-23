@@ -17,6 +17,7 @@ import StudyDetail from './pages/StudyDetail';
 import StudyDetail2 from './pages/StudyDetail2';
 import Auth from './components/Auth';
 import Login from './components/Login';
+import Chatting from './components/Chatting';
 
 
 function App() {
@@ -50,6 +51,7 @@ function App() {
         <Route path='/studys/:id' element={ <StudyDetail2/>}/>
         <Route path='/auth' element={ <Auth/>}/>
         <Route path='/login' element={ <Login/>}/>
+        <Route path='/chat' element={ <Chatting/>}/>
      </Routes>
      </BrowserRouter>
     </>

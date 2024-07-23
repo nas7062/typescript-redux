@@ -6,22 +6,29 @@ let socket :Socket | null = null;
 
 export const ConnectToServer = (username:string) =>{
     if(!socket){
-        socket =io('http://localhost:3000',{
+        socket =io('http://localhost:5173',{
             autoConnect :false,
             query :{username},
-        });
+            transports: ['websocket']
+        },
+       
+    );
         socket.connect();
 
         socket.on('connect',()=>{
+            console.log('Connected to server'); 
             store.dispatch(SetIsConnect(true));
         })
         socket.on('disconnect',()=>{
+            console.log('Disconnected from server'); 
             store.dispatch(SetIsConnect(false));
         })
         socket.on('new message' ,(msg)=>{
+            console.log('Received new message:', msg); 
             store.dispatch(AddMessage(msg));
         });
     }
+    return socket;
 };
 
 export const disconnectFromServer = () =>{

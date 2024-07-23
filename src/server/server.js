@@ -27,11 +27,9 @@ io.on('connection', (client)=>{
     })
 });
 
-server.listen( 3000, ()=>{
-    console.log("서버 연결.. ,3000");
+server.listen( 5173, ()=>{
+    console.log("서버 연결.. ,5173");
 });
 
-app.get("/message", (res)=>res.send("hello express!"));
-app.get("/api", (res)=> res.send("hello api!"));
 
 ViteExpress.bind(app,server);

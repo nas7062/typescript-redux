@@ -8,8 +8,9 @@ import my from "../../public/assets/my.png"
 import meet from "../../public/assets/meet.png"
 import goal from "../../public/assets/goal.png"
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { RootState } from "../store/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../store/store";
+import { logout } from "../reducer/AuthSlice";
 
 const TopBar = styled.div`
     
@@ -30,6 +31,7 @@ const TopBar = styled.div`
         list-style:none;
         font-weight:600;
         font-size:0.8rem;
+        cursor:pointer;
     }
 `
 const NavBar = styled.div`
@@ -57,12 +59,13 @@ const NavBar = styled.div`
 `
 const Header: React.FC = () => {
     const { isAuthenticated } = useSelector((state: RootState) => state.auth);
+    const dispatch = useDispatch<AppDispatch>();
     return (
         <div>
             <TopBar>
                 <ul>
-                    {isAuthenticated ? <Link to={"/login"}><li>로그인</li></Link>
-                     :<Link to={"/"}><li>로그아웃</li></Link>
+                    {!isAuthenticated ? <Link to={"/login"}><li>로그인</li></Link>
+                     :<li onClick={()=>dispatch(logout())}>로그아웃</li>
                     }
                     <Link to={"/auth"}><li>회원가입</li></Link>
                     <li>공지사항</li>
@@ -74,7 +77,7 @@ const Header: React.FC = () => {
                 <NavBtn img={feed} text="피드"  lk= "feed"/>
                 <NavBtn img={meet} text="스터디"  lk= "study" />
                 <NavBtn img={goal} text="챌린지"   lk= "ch"/>
-                <NavBtn img={msg} text="메세지"  lk= "feed"/>
+                <NavBtn img={msg} text="메세지"  lk= "chat"/>
                 <NavBtn img={heart} text="찜"  lk= "feed"/>
                 <NavBtn img={my} text="마이" lk= "feed" />
             </NavBar>
