@@ -38,9 +38,9 @@ export const disconnectFromServer = () =>{
         socket = null;
     }
 }
-export const SendMessage = (usename:string,message:string) =>{
+export const SendMessage = (username:string,message:string) =>{
     if(socket){
-        socket.emit('new message',{usename:usename,message:message},(reponse:string)=>{
+        socket.emit('new message',{username,message},(reponse:string)=>{
             console.log(reponse);
         } )
     }

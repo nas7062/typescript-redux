@@ -1,14 +1,24 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ConnectToServer, disconnectFromServer, SendMessage } from '../socket/socket';
 import { SetUsername, SetMessage ,SetIsConnect, AddMessage} from '../reducer/ChatSlice';
 import styled from 'styled-components';
+import { RootState } from '../store/store';
+import { Link } from 'react-router-dom';
+import { logout } from '../reducer/AuthSlice';
 
 const Container = styled.div`
     display: flex;
     flex-direction: column;
     height: 100vh;
     justify-content: space-between;
+
+    h2 {
+        text-align:center;
+        font-size:2.5rem;
+        margin:5px;
+        color: #007bff;
+    }
 `;
 
 const Header = styled.div`
@@ -22,6 +32,8 @@ const ChatWindow = styled.div`
     flex: 1;
     overflow-y: auto;
     padding: 10px;
+    display: flex;
+    flex-direction: column-reverse;
 `;
 
 const MessageContainer = styled.div`
@@ -32,7 +44,7 @@ const MessageContainer = styled.div`
 
 const Message = styled.div<{ isUser: boolean }>`
     align-self: ${props => (props.isUser ? 'flex-end' : 'flex-start')};
-    background-color: ${props => (props.isUser ? '#dcf8c6' : '#fff')};
+    background-color: ${props => (props.isUser ? '#dcf8c6' : '#dcdcdc')};
     border-radius: 10px;
     padding: 10px;
     max-width: 60%;
@@ -67,8 +79,10 @@ const Button = styled.button`
 
 const Chatting = () => {
     const dispatch = useDispatch();
-    const { username, message, dialog, isConnect } = useSelector((state: any) => state.chat);
-
+    const { username, message, dialog, isConnect } = useSelector((state: RootState) => state.chat);
+    const { user, isAuthenticated } = useSelector((state: RootState) => state.auth);
+    const chatWindowRef = useRef<HTMLDivElement>(null);
+    console.log(dialog);
     useEffect(() => {
         return () => {
             if (isConnect) {
@@ -79,34 +93,39 @@ const Chatting = () => {
     }, [isConnect, dispatch]);
     useEffect(() => {
         const handleMessage = (msg: { username: string, message: string }) => {
-           
+            
             if (msg.username && msg.message) {
                 dispatch(AddMessage(msg));
             } else {
                 console.error('Unexpected message format:', msg);
             }
         };
-
+        
         if (isConnect) {
-            const socket = ConnectToServer(username);
+            const socket = ConnectToServer(isAuthenticated ? user?.username || '' : username);
             socket.on('message', handleMessage);
 
             return () => {
                 socket.off('message', handleMessage);
             };
         }
-    }, [isConnect, dispatch, username]);
+    }, [isConnect, dispatch, username, user, isAuthenticated]);
    
+    useEffect(() => {
+        if (chatWindowRef.current) {
+            chatWindowRef.current.scrollTop = chatWindowRef.current.scrollHeight;
+        }
+    }, [dialog]);
     const handleSend = () => {
         if (message) {
-            SendMessage(username, message);
+            SendMessage(isAuthenticated ? user?.username || '' : username, message);
             dispatch(SetMessage(''));
         }
     };
 
     const handleConnect = () => {
-        if (username && !isConnect) {
-            ConnectToServer(username);
+        if ((isAuthenticated ? user?.username || '' : username, message) && !isConnect) {
+            ConnectToServer(isAuthenticated ? user?.username || '' : username, message);
             dispatch(SetIsConnect(true));
         }
     };
@@ -119,41 +138,49 @@ const Chatting = () => {
     
     return (
         <Container>
-            <Header>
+            <Link to ="/"><h2>10012</h2></Link>
+        <Header>
+            {!isAuthenticated ? (
                 <Input
                     type="text"
-                    placeholder="Enter username"
+                    placeholder="사용자 이름 입력"
                     value={username}
                     onChange={(e) => {
                         dispatch(SetUsername(e.target.value));
                     }}
                 />
-                <Button onClick={handleConnect}>Connect</Button>
-                <Button onClick={handleDisconnect}>Disconnect</Button>
-            </Header>
+            ) : (
+                <div>{user&& user.username}님</div>
+            )}
+            <Button onClick={handleConnect}>연결</Button>
+            <Button onClick={() => {
+                handleDisconnect();
+                if (isAuthenticated) dispatch(logout()); // 로그아웃 시 인증 상태 업데이트
+            }}>
+                연결 해제
+            </Button>
+        </Header>
 
-            <ChatWindow>
-                <MessageContainer>
-                    {dialog.map((msg: any, index: number) => (
-                        <Message key={index} isUser={msg.username === username}>
-                            <strong>{msg.username}:</strong> {msg.message}
-                        </Message>
-                    ))}
+        <ChatWindow ref={chatWindowRef}>
+            <MessageContainer>
+                {dialog.map((msg: any, index: number) => (
+                    <Message key={index} isUser={msg.username === (isAuthenticated ? user.username : username)}>
+                        <strong>{msg.username}:</strong> {msg.message}
+                    </Message>
+                ))}
+            </MessageContainer>
+        </ChatWindow>
 
-                    
-                </MessageContainer>
-            </ChatWindow>
-
-            <InputContainer>
-                <Input
-                    type="text"
-                    placeholder="Enter message"
-                    value={message}
-                    onChange={(e) => dispatch(SetMessage(e.target.value))}
-                />
-                <Button onClick={handleSend}>Send</Button>
-            </InputContainer>
-        </Container>
+        <InputContainer>
+            <Input
+                type="text"
+                placeholder="메시지 입력"
+                value={message}
+                onChange={(e) => dispatch(SetMessage(e.target.value))}
+            />
+            <Button onClick={handleSend}>전송</Button>
+        </InputContainer>
+    </Container>
     );
 };
 
