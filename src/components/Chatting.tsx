@@ -76,7 +76,11 @@ const Button = styled.button`
         background-color: #0056b3;
     }
 `;
+const Connected = styled.div`
 
+    margin-left:900px;
+    margin-right:600px;
+`
 const Chatting = () => {
     const dispatch = useDispatch();
     const { username, message, dialog, isConnect } = useSelector((state: RootState) => state.chat);
@@ -116,6 +120,7 @@ const Chatting = () => {
             chatWindowRef.current.scrollTop = chatWindowRef.current.scrollHeight;
         }
     }, [dialog]);
+
     const handleSend = () => {
         if (message) {
             SendMessage(isAuthenticated ? user?.username || '' : username, message);
@@ -124,8 +129,7 @@ const Chatting = () => {
     };
 
     const handleConnect = () => {
-        if ((isAuthenticated ? user?.username || '' : username, message) && !isConnect) {
-            ConnectToServer(isAuthenticated ? user?.username || '' : username, message);
+         if (!isConnect && (isAuthenticated ? user?.username : username)) {
             dispatch(SetIsConnect(true));
         }
     };
@@ -133,6 +137,8 @@ const Chatting = () => {
         if (isConnect) {
             disconnectFromServer();
             dispatch(SetIsConnect(false));
+            if (isAuthenticated) 
+                dispatch(logout());
         }
     };
     
@@ -150,13 +156,10 @@ const Chatting = () => {
                     }}
                 />
             ) : (
-                <div>{user&& user.username}님</div>
+                <Connected><h2>{user&& user.username}님</h2></Connected>
             )}
             <Button onClick={handleConnect}>연결</Button>
-            <Button onClick={() => {
-                handleDisconnect();
-                if (isAuthenticated) dispatch(logout()); // 로그아웃 시 인증 상태 업데이트
-            }}>
+            <Button onClick={handleDisconnect}>
                 연결 해제
             </Button>
         </Header>
@@ -164,7 +167,7 @@ const Chatting = () => {
         <ChatWindow ref={chatWindowRef}>
             <MessageContainer>
                 {dialog.map((msg: any, index: number) => (
-                    <Message key={index} isUser={msg.username === (isAuthenticated ? user.username : username)}>
+                    <Message key={index} isUser={msg.username === (isAuthenticated ? user?.username : username)}>
                         <strong>{msg.username}:</strong> {msg.message}
                     </Message>
                 ))}

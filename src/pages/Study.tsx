@@ -109,7 +109,7 @@ const Study = () => {
             <Header />
             <FeedSec>
                 <h2>스터디</h2>
-                <button onClick={() => setFormVisible(!isFormVisible)}>피드 작성하기</button>
+                <button onClick={() => setFormVisible(!isFormVisible)}>스터디 작성하기</button>
                 {isFormVisible && (
                     <FormContainer>
                         <form onSubmit={handleFormSubmit}>

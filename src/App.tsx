@@ -2,7 +2,7 @@
 import  { useEffect } from 'react';
 import './App.css'
 import { RootState } from './store/store';
-import {  useSelector } from 'react-redux';
+import {  useDispatch, useSelector } from 'react-redux';
 import { ConnectToServer, disconnectFromServer } from './socket/socket';
 import Main from './pages/Main';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
@@ -18,6 +18,12 @@ import StudyDetail2 from './pages/StudyDetail2';
 import Auth from './components/Auth';
 import Login from './components/Login';
 import Chatting from './components/Chatting';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth, db } from './firebaseConfig';
+import { doc, getDoc } from 'firebase/firestore';
+import { logout, setuser } from './reducer/AuthSlice';
+import Mypage from './pages/Mypage';
+import BookMarkPage from './pages/BookMarkPage';
 
 
 function App() {
@@ -33,7 +39,25 @@ function App() {
         }
     },[isConnect,username])  
   
+    const dispatch = useDispatch();
 
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const userDocRef = doc(db, 'users', user.uid);
+        const userDocSnap = await getDoc(userDocRef);
+        if (userDocSnap.exists()) {
+          const userData = userDocSnap.data();
+          dispatch(setuser({ uid: user.uid, email: user.email, username: userData.username, profileImage: userData.profileImage }));
+        }
+      }
+        else {
+          dispatch(logout());
+      }
+    });
+
+    return () => unsubscribe();
+  }, [dispatch]);
    
   return (
     <>
@@ -52,6 +76,8 @@ function App() {
         <Route path='/auth' element={ <Auth/>}/>
         <Route path='/login' element={ <Login/>}/>
         <Route path='/chat' element={ <Chatting/>}/>
+        <Route path='/my' element={ <Mypage/>}/>
+        <Route path='/book' element={ <BookMarkPage/>}/>
      </Routes>
      </BrowserRouter>
     </>

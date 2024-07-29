@@ -1,12 +1,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { auth, db } from '../firebaseConfig';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 
 interface User {
     uid: string;
     email: string | null;
     username: string;
+    profileImage?: string;
   }
   
   interface AuthState {
@@ -67,7 +68,7 @@ export const loginUser = createAsyncThunk<User, LoginArgs>(
         const userDocSnap = await getDoc(userDocRef);
         if (userDocSnap.exists()) {
           const userData = userDocSnap.data();
-          return { uid: user.uid, email: user.email, username: userData.username };
+          return { uid: user.uid, email: user.email, username: userData.username ,profileImage: userData.profileImage};
         } 
       } catch (error: any) {
         return rejectWithValue(error.message);
@@ -82,7 +83,12 @@ const AuthSlice = createSlice({
     logout(state) {
       state.user = null;
       state.isAuthenticated =false;
+      signOut(auth);
     },
+    setuser(state,action) {
+        state.user = action.payload;
+        state.isAuthenticated = true;
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -115,5 +121,5 @@ const AuthSlice = createSlice({
   },
 }); 
 
-export const { logout } = AuthSlice.actions;
+export const { logout,setuser } = AuthSlice.actions;
 export default AuthSlice.reducer;

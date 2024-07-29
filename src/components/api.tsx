@@ -1,5 +1,5 @@
 import axios from "axios";
-import { addDoc, collection, getDocs } from 'firebase/firestore';
+import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, setDoc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { db, storage } from '../firebaseConfig';
 import { CardProps } from '../components/Card';
@@ -80,4 +80,30 @@ export const addChallenge = async (formData: Omit<CardProps, "id">): Promise<voi
 };
 export const addStudys = async (formData: Omit<CardProps, "id">): Promise<void> => {
   await addDocument("studys", formData);
+};
+export const getUserBookmarks = async (userId: string): Promise<string[]> => {
+  const bookmarksRef = collection(db, 'users', userId, 'bookmarks');
+  const snapshot = await getDocs(bookmarksRef);
+  const bookmarks: string[] = [];
+  snapshot.forEach(doc => bookmarks.push(doc.id));
+  return bookmarks;
+};
+
+export const addBookmark = async (userId: string, studyId: string) => {
+  const bookmarkRef = doc(db, 'users', userId, 'bookmarks', studyId);
+  try {
+      await setDoc(bookmarkRef, { added: true });
+  } catch (error) {
+      console.error("Error adding bookmark:", error);
+  }
+};
+
+// 찜 목록 제거
+export const removeBookmark = async (userId: string, studyId: string) => {
+  const bookmarkRef = doc(db, 'users', userId, 'bookmarks', studyId);
+  try {
+      await deleteDoc(bookmarkRef);
+  } catch (error) {
+      console.error("Error removing bookmark:", error);
+  }
 };

@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 export interface CardProps {
-    id: number | string,
+    id: string |number,
     img?: string,
     img2?: File ,
     tag: string[],

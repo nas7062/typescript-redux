@@ -78,8 +78,8 @@ const Header: React.FC = () => {
                 <NavBtn img={meet} text="스터디"  lk= "study" />
                 <NavBtn img={goal} text="챌린지"   lk= "ch"/>
                 <NavBtn img={msg} text="메세지"  lk= "chat"/>
-                <NavBtn img={heart} text="찜"  lk= "feed"/>
-                <NavBtn img={my} text="마이" lk= "feed" />
+                <NavBtn img={heart} text="찜"  lk= "book"/>
+                <NavBtn img={my} text="마이" lk= "my" />
             </NavBar>
 
         </div>
