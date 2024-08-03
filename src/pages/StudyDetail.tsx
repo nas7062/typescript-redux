@@ -5,6 +5,7 @@ import { CardProps } from "../components/Card";
 import {  addBookmark, fetchStudys, getUserBookmarks, removeBookmark } from "../components/api";
 import styled from "styled-components";
 import { auth } from "../firebaseConfig";
+import BookMarkBtn from "../components/BookMarkBtn";
 
 const DetailContainer = styled.div`
     width: 800px;
@@ -42,6 +43,7 @@ const Btn = styled.div`
      button {
         background-color:#007bff;
         color:white;
+         margin-top:50px;
      }
 `
 const StudyDetail: React.FC = () => {
@@ -51,38 +53,10 @@ const StudyDetail: React.FC = () => {
         queryKey: ["study"],
         queryFn: fetchStudys,
     });
-
-    const userId = auth.currentUser?.uid;
     const study = studies.find(study => study.id === parseInt(id!));
-    const [isBookmarked, setIsBookmarked] = useState<boolean>(false);
-    useEffect(() => {
-        const checkIfBookmarked = async () => {
-            if (userId && study) {
-                // Firestore에서 찜 목록을 확인하여 현재 찜 상태를 설정합니다.
-                try {
-                    const bookmarks = await getUserBookmarks(userId);
-                    setIsBookmarked(bookmarks.includes(study.id.toString()));
-                } catch (error) {
-                    console.error("Error checking bookmarks:", error);
-                }
-            }
-        };
 
-        checkIfBookmarked();
-    }, [userId, study]);
-
-    const toggleBookmark = async () => {
-        if (userId && study) {
-            if (isBookmarked) {
-                // 찜 목록에서 제거
-                await removeBookmark(userId, study.id.toString());
-            } else {
-                // 찜 목록에 추가
-                await addBookmark(userId, study.id.toString());
-            }
-            setIsBookmarked(!isBookmarked); // 상태 토글
-        }
-    };
+     const userId = auth.currentUser?.uid;
+   
     return (
         <DetailContainer>
             {study && (
@@ -94,9 +68,7 @@ const StudyDetail: React.FC = () => {
                         <span key={idx}>{t}</span>
                     ))}
                     <Btn>
-                    <button onClick={toggleBookmark}>
-                            {isBookmarked ? '찜 취소하기' : '찜하기'}
-                        </button>
+                    <BookMarkBtn userId={userId} studyId={study.id.toString()}/>
                         <button>스터디 참여하기</button>    
                     </Btn>
                    

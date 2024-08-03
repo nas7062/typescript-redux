@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
-import { getUserBookmarks } from "../components/api";
+import { fetchChals, fetchGoal, fetchStudy, getUserBookmarks } from "../components/api";
 import { fetchStudys } from "../components/api";
 import styled from "styled-components";
 import { auth } from '../firebaseConfig';
@@ -35,6 +35,22 @@ const BookMarkPage: React.FC = () => {
         queryFn: fetchStudys,
         placeholderData: []
     });
+    const { data: studys = [] } = useQuery<CardProps[]>({
+        queryKey: ["studys"],
+        queryFn: fetchStudy,
+        placeholderData: []
+    });
+
+    const { data: goals = [] } = useQuery<CardProps[]>({
+        queryKey: ["goal"],
+        queryFn: fetchGoal,
+        placeholderData: []
+    });
+    const { data: chals = [] } = useQuery<CardProps[]>({
+        queryKey: ["challenges"],
+        queryFn: fetchChals,
+        placeholderData: []
+    });
     useEffect(() => {
         
         const user = auth.currentUser;
@@ -54,19 +70,21 @@ const BookMarkPage: React.FC = () => {
         fetchBookmarks();
     }, [userId]);
 
-    const bookmarkedStudyIds = new Set(bookmarks);
-    const bookmarkedStudies = studies.filter(study => bookmarkedStudyIds.has(study.id.toString())) || [];
-
- 
+    const bookmarkedItems = [
+        ...studies.filter(study => bookmarks.includes(study.id.toString())),
+        ...chals.filter(chal => bookmarks.includes(chal.id.toString())),
+        ...goals.filter(goal => bookmarks.includes(goal.id.toString())),
+        ...studys.filter(st => bookmarks.includes(st.id.toString())),
+    ];
     return (
         <>
         <Header/>
         <Container>
             <h1>찜한 항목들</h1>
-            {bookmarkedStudies.length === 0 ? (
+            {bookmarkedItems.length === 0 ? (
                 <p>찜한 항목이 없습니다.</p>
             ) : (
-                bookmarkedStudies.map(study => (
+                bookmarkedItems.map(study => (
                     <Card key={study.id}>
                         <img src={study.img} alt={study.title} style={{ width: '100%', borderRadius: '10px' }} />
                         <h2>{study.title}</h2>

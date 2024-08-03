@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import {   fetchStudy } from "../components/api";
 import styled from "styled-components";
 import { CardProps } from "../components/Card";
+import BookMarkBtn from "../components/BookMarkBtn";
+import { auth } from "../firebaseConfig";
 
 const DetailContainer = styled.div`
     width: 800px;
@@ -34,14 +36,25 @@ const DetailContainer = styled.div`
         padding: 5px 10px;
     }
 `;
+const Btn = styled.div`
+    display:flex;
+     justify-content: space-around ;
 
+     button {
+        background-color:#007bff;
+        color:white;
+        margin-top:50px;
+        
+     }
+`
 const StudyDetail2: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const { data } = useQuery<CardProps[]>({
         queryKey: ["studys"],
         queryFn: fetchStudy,
     });
-    
+    const userId = auth.currentUser?.uid;
+   
     const feed = data?.find(item => item.id === id! );
     console.log(feed);
     return (
@@ -54,6 +67,10 @@ const StudyDetail2: React.FC = () => {
                     {feed.tag.map((t, idx) => (
                         <span key={idx}>{t}</span>
                     ))}
+                     <Btn>
+                    <BookMarkBtn userId={userId} studyId={feed.id.toString()}/>
+                        <button>스터디 참여하기</button>    
+                    </Btn>
                 </>
             ) : (
                 <p>피드를 찾을 수 없습니다.</p>

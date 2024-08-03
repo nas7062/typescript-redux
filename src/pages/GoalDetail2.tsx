@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import {  fetchChals } from "../components/api";
 import styled from "styled-components";
 import { CardProps } from "../components/Card";
+import { auth } from "../firebaseConfig";
+import BookMarkBtn from "../components/BookMarkBtn";
 
 const DetailContainer = styled.div`
     width: 800px;
@@ -34,26 +36,40 @@ const DetailContainer = styled.div`
         padding: 5px 10px;
     }
 `;
+const Btn = styled.div`
+    display:flex;
+     justify-content: space-around ;
 
+     button {
+        background-color:#007bff;
+        color:white;
+         margin-top:50px;
+     }
+`
 const GoalDetail2: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const { data } = useQuery<CardProps[]>({
         queryKey: ["challenges"],
         queryFn: fetchChals,
     });
+    const userId = auth.currentUser?.uid;
+   
+    const goal = data?.find(item => item.id === id! );
     
-    const feed = data?.find(item => item.id === id! );
-    console.log(feed);
     return (
         <DetailContainer>
-            {feed ? (
+            {goal ? (
                 <>
-                    <img src={feed.img} alt={feed.title} />
-                    <h2>{feed.title}</h2>
-                    <p>{feed.location}</p>
-                    {feed.tag.map((t, idx) => (
+                    <img src={goal.img} alt={goal.title} />
+                    <h2>{goal.title}</h2>
+                    <p>{goal.location}</p>
+                    {goal.tag.map((t, idx) => (
                         <span key={idx}>{t}</span>
                     ))}
+                    <Btn>
+                    <BookMarkBtn userId={userId} studyId={goal.id.toString()}/>
+                        <button>스터디 참여하기</button>    
+                    </Btn>
                 </>
             ) : (
                 <p>피드를 찾을 수 없습니다.</p>

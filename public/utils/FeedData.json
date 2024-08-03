@@ -83,7 +83,7 @@
     ],
     "study" :[
         {
-            "id": 1,
+            "id": 9,
             "img": "/assets/2.png",
             "tag": [
                 "New",
@@ -93,7 +93,7 @@
             "location": "인천 광역시 서구 봉오재 1로"
         },
         {
-            "id": 2,
+            "id": 10,
             "img": "/assets/3.png",
             "tag": [
                 "New",
@@ -103,7 +103,7 @@
             "location": "인천 광역시 서구 봉오재 1로"
         },
         {
-            "id": 3,
+            "id": 11,
             "img": "/assets/4.png",
             "tag": [
                 "New",
@@ -113,7 +113,7 @@
             "location": "인천 광역시 서구 봉오재 1로"
         },
         {
-            "id": 4,
+            "id": 12,
             "img": "/assets/5.png",
             "tag": [
                 "New",
@@ -125,7 +125,7 @@
     ],
     "goal" :[
         {
-            "id": 1,
+            "id": 13,
             "img": "/assets/6.png",
             "tag": [
                 "New",
@@ -135,7 +135,7 @@
             "location": "인천 광역시 서구 봉오재 1로"
         },
         {
-            "id": 2,
+            "id": 14,
             "img": "/assets/7.png",
             "tag": [
                 "New",
@@ -145,7 +145,7 @@
             "location": "인천 광역시 서구 봉오재 1로"
         },
         {
-            "id": 3,
+            "id": 15,
             "img": "/assets/8.png",
             "tag": [
                 "New",
@@ -155,7 +155,7 @@
             "location": "인천 광역시 서구 봉오재 1로"
         },
         {
-            "id": 4,
+            "id": 16,
             "img": "/assets/9.png",
             "tag": [
                 "New",

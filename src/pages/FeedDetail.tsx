@@ -1,9 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { useId } from "react";
 import { useParams } from "react-router-dom";
 import { CardProps } from "../components/Card";
 import { fetchDatas } from "../components/api";
 import styled from "styled-components";
+import BookMarkPage from "./BookMarkPage";
+import { auth } from "../firebaseConfig";
+import BookMarkBtn from "../components/BookMarkBtn";
 
 const DetailContainer = styled.div`
     width: 800px;
@@ -34,6 +37,17 @@ const DetailContainer = styled.div`
         padding:5px 10px;
     }
 `;
+const Btn = styled.div`
+    display:flex;
+     justify-content: space-around ;
+
+     button {
+        background-color:#007bff;
+        color:white;
+        margin-top:50px;
+        
+     }
+`
 
 const FeedDetail: React.FC = () => {
 
@@ -42,7 +56,7 @@ const FeedDetail: React.FC = () => {
         queryKey: ["data"],
         queryFn: fetchDatas,
     });
-
+    
     const feed = data?.find(item => item.id === parseInt(id!));
     console.log(feed?.img);
     return (
@@ -55,6 +69,7 @@ const FeedDetail: React.FC = () => {
                     {feed.tag.map((t, idx) => (
                         <span key={idx}>{t}</span>
                     ))}
+                    
                 </>
             )}
         </DetailContainer>
