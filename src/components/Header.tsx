@@ -68,7 +68,7 @@ const Header: React.FC = () => {
                      :<li onClick={()=>dispatch(logout())}>로그아웃</li>
                     }
                     <Link to={"/auth"}><li>회원가입</li></Link>
-                    <li>공지사항</li>
+                    <Link to ="/notice"><li>공지사항</li></Link>
                 </ul>
             </TopBar>
             <NavBar>

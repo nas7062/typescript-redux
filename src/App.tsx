@@ -24,6 +24,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import { logout, setuser } from './reducer/AuthSlice';
 import Mypage from './pages/Mypage';
 import BookMarkPage from './pages/BookMarkPage';
+import Notice from './pages/Notice';
 
 
 function App() {
@@ -78,6 +79,7 @@ function App() {
         <Route path='/chat' element={ <Chatting/>}/>
         <Route path='/my' element={ <Mypage/>}/>
         <Route path='/book' element={ <BookMarkPage/>}/>
+        <Route path='/notice' element={ <Notice/>}/>
      </Routes>
      </BrowserRouter>
     </>

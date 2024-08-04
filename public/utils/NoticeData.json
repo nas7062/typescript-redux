@@ -1,0 +1,47 @@
+{
+    "notice": [
+        {
+            "id": 1,
+            "img": "/assets/1.png",
+            "title": "notice1",
+            "name" : "10012",
+            "Descript": "인천 광역시 서구 봉오재 1로"
+        },
+        {
+            "id": 2,
+            "img": "/assets/1.png",
+            "title": "notice1",
+            "name" : "10012",
+            "Descript": "인천 광역시 서구 봉오재 1로"
+        },
+        {
+            "id": 3,
+           "img": "/assets/1.png",
+            "title": "notice1",
+            "name" : "10012",
+            "Descript": "인천 광역시 서구 봉오재 1로"
+        },
+        {
+            "id": 4,
+          "img": "/assets/1.png",
+            "title": "notice1",
+            "name" : "10012",
+            "Descript": "인천 광역시 서구 봉오재 1로"
+        },
+        {
+            "id": 5,
+            "img": "/assets/1.png",
+            "title": "notice1",
+            "name" : "10012",
+            "Descript": "인천 광역시 서구 봉오재 1로"
+        },
+        {
+            "id": 6,
+            "img": "/assets/1.png",
+            "title": "notice1",
+            "name" : "10012",
+            "Descript": "인천 광역시 서구 봉오재 1로"
+        }
+       
+    ]
+}

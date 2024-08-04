@@ -17,6 +17,10 @@ export async function fetchGoal() {
   return await axios.get("../../public/utils/FeedData.json")
     .then((res) => res.data.goal);
 }
+export async function fetchNotice() {
+  return await axios.get("../../public/utils/NoticeData.json")
+    .then((res) => res.data.notice);
+}
 export const fetchDocuments = async (collectionName: string): Promise<CardProps[]> => {
   const querySnapshot = await getDocs(collection(db, collectionName));
   const data: CardProps[] = [];
