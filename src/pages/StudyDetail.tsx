@@ -1,8 +1,8 @@
-import { useQuery } from "@tanstack/react-query";
-import React, { useEffect, useState } from "react";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import React from "react";
 import { useParams } from "react-router-dom";
 import { CardProps } from "../components/Card";
-import {  addBookmark, fetchStudys, getUserBookmarks, removeBookmark } from "../components/api";
+import {   addStudyParticipation, fetchStudys } from "../components/api";
 import styled from "styled-components";
 import { auth } from "../firebaseConfig";
 import BookMarkBtn from "../components/BookMarkBtn";
@@ -46,7 +46,7 @@ const Btn = styled.div`
          margin-top:50px;
      }
 `
-const StudyDetail: React.FC = () => {
+const StudyDetail: React.FC= () => {
 
     const { id } = useParams<{ id: string }>();
     const { data:studies =[] } = useQuery<CardProps[]>({
@@ -57,6 +57,21 @@ const StudyDetail: React.FC = () => {
 
      const userId = auth.currentUser?.uid;
    
+     const mutation = useMutation({
+        mutationFn: async () => {
+          if (userId && study) {
+            await addStudyParticipation(userId, study.id.toString(),study.title);
+          } else {
+            throw new Error("유저 ID 또는 스터디 정보를 찾을 수 없습니다.");
+          }
+        },
+        onSuccess: () => {
+          alert("스터디에 성공적으로 참여했습니다.");
+        },
+        onError: (error: Error) => {
+          alert(`스터디 참여 중 오류가 발생했습니다: ${error.message}`);
+        }
+      });
     return (
         <DetailContainer>
             {study && (
@@ -69,7 +84,7 @@ const StudyDetail: React.FC = () => {
                     ))}
                     <Btn>
                     <BookMarkBtn userId={userId} studyId={study.id.toString()}/>
-                        <button>스터디 참여하기</button>    
+                    <button onClick={() => mutation.mutate()}>스터디 참여하기</button>        
                     </Btn>
                    
                 </>

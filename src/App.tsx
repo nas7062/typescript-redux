@@ -25,6 +25,7 @@ import { logout, setuser } from './reducer/AuthSlice';
 import Mypage from './pages/Mypage';
 import BookMarkPage from './pages/BookMarkPage';
 import Notice from './pages/Notice';
+import NoticeDetail from './pages/NoticeDetail';
 
 
 function App() {
@@ -80,6 +81,7 @@ function App() {
         <Route path='/my' element={ <Mypage/>}/>
         <Route path='/book' element={ <BookMarkPage/>}/>
         <Route path='/notice' element={ <Notice/>}/>
+        <Route path='/notice/:id' element={ <NoticeDetail/>}/>
      </Routes>
      </BrowserRouter>
     </>

@@ -3,42 +3,42 @@
         {
             "id": 1,
             "img": "/assets/1.png",
-            "title": "notice1",
+            "title": "공지사항",
             "name" : "10012",
             "Descript": "인천 광역시 서구 봉오재 1로"
         },
         {
             "id": 2,
             "img": "/assets/1.png",
-            "title": "notice1",
+            "title": "운영관리",
             "name" : "10012",
             "Descript": "인천 광역시 서구 봉오재 1로"
         },
         {
             "id": 3,
            "img": "/assets/1.png",
-            "title": "notice1",
+            "title": "서비스 개선",
             "name" : "10012",
             "Descript": "인천 광역시 서구 봉오재 1로"
         },
         {
             "id": 4,
           "img": "/assets/1.png",
-            "title": "notice1",
+            "title": "서버 문제 사항",
             "name" : "10012",
             "Descript": "인천 광역시 서구 봉오재 1로"
         },
         {
             "id": 5,
             "img": "/assets/1.png",
-            "title": "notice1",
+            "title": "공지사항2",
             "name" : "10012",
             "Descript": "인천 광역시 서구 봉오재 1로"
         },
         {
             "id": 6,
             "img": "/assets/1.png",
-            "title": "notice1",
+            "title": "공지사항3",
             "name" : "10012",
             "Descript": "인천 광역시 서구 봉오재 1로"
         }

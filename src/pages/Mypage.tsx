@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import { RootState } from "../store/store";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,6 +7,8 @@ import { db, storage } from "../firebaseConfig";
 import { doc, updateDoc } from "firebase/firestore";
 import { setuser } from "../reducer/AuthSlice";
 import styled from "styled-components";
+import { getUserParticipations, removeStudyParticipation } from "../components/api";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -78,10 +80,27 @@ const Input = styled.input`
 `
 const Mypage:React.FC = () =>{
     const [image, setImage] = useState<File | null>(null);
+    const [participations, setParticipations] = useState<any[]>([]);
     const { user } = useSelector((state: RootState) => state.auth);
     const dispatch = useDispatch();
     const [username, setUsername] = useState(user?.username || '');
-    
+    const navigate = useNavigate();
+    useEffect(() => {
+      if (user?.uid) {
+        getUserParticipations(user.uid).then(setParticipations);
+      }
+    }, [user]);
+  
+    const handleRemoveParticipation = async (studyId: string) => {
+      if (user?.uid) {
+        await removeStudyParticipation(user.uid, studyId);
+        setParticipations(participations.filter(p => p.id !== studyId)); // Remove from local state
+      }
+    };
+  
+    const handleStudyClick = (studyId: string) => {
+      navigate(`/study/${studyId}`);
+    };
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       if (e.target.files && e.target.files[0]) {
         setImage(e.target.files[0]);
@@ -96,9 +115,7 @@ const Mypage:React.FC = () =>{
   
       uploadTask.on(
         'state_changed',
-        (snapshot) => {
-
-        },
+        (snapshot) => {},
         (error) => {
           // Handle error
           console.error(error);
@@ -131,8 +148,12 @@ const Mypage:React.FC = () =>{
         />
             <input type="file" accept="image/*" onChange={handleImageChange} />
             <Button onClick={handleUpload}>프로필 수정</Button>
-            <ListItem>내가 가입한 모임</ListItem>
-            
+            {participations.map((participation) => (
+          <ListItem key={participation.id} onClick={() => handleStudyClick(participation.id)}>
+            <h2>{participation.title}</h2>
+            <Button onClick={(e) => { e.stopPropagation(); handleRemoveParticipation(participation.id); }}>제거</Button>
+          </ListItem>
+        ))}
         </Container>
         </>
     );

@@ -37,17 +37,6 @@ const DetailContainer = styled.div`
         padding:5px 10px;
     }
 `;
-const Btn = styled.div`
-    display:flex;
-     justify-content: space-around ;
-
-     button {
-        background-color:#007bff;
-        color:white;
-        margin-top:50px;
-        
-     }
-`
 
 const FeedDetail: React.FC = () => {
 

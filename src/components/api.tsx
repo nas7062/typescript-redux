@@ -1,5 +1,5 @@
 import axios from "axios";
-import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, setDoc } from 'firebase/firestore';
+import { addDoc, collection, deleteDoc, doc, getDocs, runTransaction, setDoc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { db, storage } from '../firebaseConfig';
 import { CardProps } from '../components/Card';
@@ -111,3 +111,34 @@ export const removeBookmark = async (userId: string, studyId: string) => {
       console.error("Error removing bookmark:", error);
   }
 };
+
+export const addStudyParticipation = async (userId: string, studyId: string,title: string) => {
+  const participationRef = doc(db, 'users', userId, 'participations', studyId);
+
+  try {
+    await runTransaction(db, async (transaction) => {
+      transaction.set(participationRef, { joined: true ,title });
+    });
+    console.log(`Successfully added participation for user ${userId} in study ${studyId}`);
+  } catch (error) {
+    console.error("Error adding study participation:", error);
+  }
+};
+export const removeStudyParticipation = async (userId: string, studyId: string) => {
+  const participationRef = doc(db, 'users', userId, 'participations', studyId);
+  try {
+      await deleteDoc(participationRef);
+      
+  } catch (error) {
+      console.error("Error removing study participation:", error);
+  }
+};
+export const getUserParticipations = async (userId: string) => {
+  const participationsRef = collection(db, 'users', userId, 'participations');
+  const snapshot = await getDocs(participationsRef);
+
+  const participations = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  console.log("Participations:", participations);
+  
+  return participations;
+};  
