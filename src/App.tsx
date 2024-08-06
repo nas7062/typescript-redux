@@ -78,7 +78,7 @@ function App() {
         <Route path='/auth' element={ <Auth/>}/>
         <Route path='/login' element={ <Login/>}/>
         <Route path='/chat' element={ <Chatting/>}/>
-        <Route path='/my' element={ <Mypage/>}/>
+        <Route path='/my' element={ <Mypage/>}/>  
         <Route path='/book' element={ <BookMarkPage/>}/>
         <Route path='/notice' element={ <Notice/>}/>
         <Route path='/notice/:id' element={ <NoticeDetail/>}/>

@@ -142,3 +142,32 @@ export const getUserParticipations = async (userId: string) => {
   
   return participations;
 };  
+
+export const addGoalParticipation = async (userId: string, studyId: string,title: string) => {
+  const participationRef = doc(db, 'users', userId, 'goalparticipations', studyId);
+
+  try {
+    await runTransaction(db, async (transaction) => {
+      transaction.set(participationRef, { joined: true ,title });
+    });
+  } catch (error) {
+    console.error("Error adding study participation:", error);
+  }
+};
+export const removeGoalParticipation = async (userId: string, studyId: string) => {
+  const participationRef = doc(db, 'users', userId, 'goalparticipations', studyId);
+  try {
+      await deleteDoc(participationRef);
+      
+  } catch (error) {
+      console.error("Error removing study participation:", error);
+  }
+};
+export const getUserGoalParticipations = async (userId: string) => {
+  const participationsRef = collection(db, 'users', userId, 'goalparticipations');
+  const snapshot = await getDocs(participationsRef);
+
+  const goalparticipations = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  
+  return goalparticipations;
+};  

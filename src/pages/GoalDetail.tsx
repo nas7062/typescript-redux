@@ -1,8 +1,8 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import React from "react";
 import { useParams } from "react-router-dom";
 import { CardProps } from "../components/Card";
-import {  fetchGoal } from "../components/api";
+import {  addGoalParticipation, fetchGoal } from "../components/api";
 import styled from "styled-components";
 import { auth } from "../firebaseConfig";
 import BookMarkBtn from "../components/BookMarkBtn";
@@ -57,6 +57,21 @@ const GoalDetail: React.FC = () => {
    
     const goal = data?.find(item => item.id === parseInt(id!));
     
+    const mutation = useMutation({
+        mutationFn: async () => {
+          if (userId && goal) {
+            await addGoalParticipation(userId, goal.id.toString(),goal.title);
+          } else {
+            throw new Error("유저 ID 또는 스터디 정보를 찾을 수 없습니다.");
+          }
+        },
+        onSuccess: () => {
+          alert("스터디에 성공적으로 참여했습니다.");
+        },
+        onError: (error: Error) => {
+          alert(`스터디 참여 중 오류가 발생했습니다: ${error.message}`);
+        }
+      });
     return (
         <DetailContainer>
             {goal && (
@@ -69,7 +84,7 @@ const GoalDetail: React.FC = () => {
                     ))}
                     <Btn>
                     <BookMarkBtn userId={userId} studyId={goal.id.toString()}/>
-                        <button>스터디 참여하기</button>    
+                        <button  onClick={() => mutation.mutate()} >챌린지 참여하기</button>    
                     </Btn>
                     
                 </>

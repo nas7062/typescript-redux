@@ -1,7 +1,7 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import React from "react";
 import { useParams } from "react-router-dom";
-import {   fetchStudy } from "../components/api";
+import {   addStudyParticipation, fetchStudy } from "../components/api";
 import styled from "styled-components";
 import { CardProps } from "../components/Card";
 import BookMarkBtn from "../components/BookMarkBtn";
@@ -55,21 +55,36 @@ const StudyDetail2: React.FC = () => {
     });
     const userId = auth.currentUser?.uid;
    
-    const feed = data?.find(item => item.id === id! );
-    console.log(feed);
+    const study = data?.find(item => item.id === id! );
+    
+    const mutation = useMutation({
+        mutationFn: async () => {
+          if (userId && study) {
+            await addStudyParticipation(userId, study.id.toString(),study.title);
+          } else {
+            throw new Error("유저 ID 또는 스터디 정보를 찾을 수 없습니다.");
+          }
+        },
+        onSuccess: () => {
+          alert("스터디에 성공적으로 참여했습니다.");
+        },
+        onError: (error: Error) => {
+          alert(`스터디 참여 중 오류가 발생했습니다: ${error.message}`);
+        }
+      });
     return (
         <DetailContainer>
-            {feed ? (
+            {study ? (
                 <>
-                    <img src={feed.img} alt={feed.title} />
-                    <h2>{feed.title}</h2>
-                    <p>{feed.location}</p>
-                    {feed.tag.map((t, idx) => (
+                    <img src={study.img} alt={study.title} />
+                    <h2>{study.title}</h2>
+                    <p>{study.location}</p>
+                    {study.tag.map((t, idx) => (
                         <span key={idx}>{t}</span>
                     ))}
                      <Btn>
-                    <BookMarkBtn userId={userId} studyId={feed.id.toString()}/>
-                        <button>스터디 참여하기</button>    
+                    <BookMarkBtn userId={userId} studyId={study.id.toString()}/>
+                        <button onClick={() => mutation.mutate()}>스터디 참여하기</button>    
                     </Btn>
                 </>
             ) : (

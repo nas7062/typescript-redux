@@ -7,7 +7,7 @@ import { db, storage } from "../firebaseConfig";
 import { doc, updateDoc } from "firebase/firestore";
 import { setuser } from "../reducer/AuthSlice";
 import styled from "styled-components";
-import { getUserParticipations, removeStudyParticipation } from "../components/api";
+import { getUserGoalParticipations, getUserParticipations, removeGoalParticipation, removeStudyParticipation } from "../components/api";
 import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
@@ -78,85 +78,112 @@ const Input = styled.input`
     height:30px;
     margin:20px 20px;
 `
-const Mypage:React.FC = () =>{
-    const [image, setImage] = useState<File | null>(null);
-    const [participations, setParticipations] = useState<any[]>([]);
-    const { user } = useSelector((state: RootState) => state.auth);
-    const dispatch = useDispatch();
-    const [username, setUsername] = useState(user?.username || '');
-    const navigate = useNavigate();
-    useEffect(() => {
-      if (user?.uid) {
-        getUserParticipations(user.uid).then(setParticipations);
-      }
-    }, [user]);
-  
-    const handleRemoveParticipation = async (studyId: string) => {
-      if (user?.uid) {
-        await removeStudyParticipation(user.uid, studyId);
-        setParticipations(participations.filter(p => p.id !== studyId)); // Remove from local state
-      }
-    };
-  
-    const handleStudyClick = (studyId: string) => {
+const Mypage: React.FC = () => {
+  const [image, setImage] = useState<File | null>(null);
+  const [participations, setParticipations] = useState<any[]>([]);
+  const [goals, setgoals] = useState<any[]>([]);
+  const { user } = useSelector((state: RootState) => state.auth);
+  const dispatch = useDispatch();
+  const [username, setUsername] = useState(user?.username || '');
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (user?.uid) {
+      getUserParticipations(user.uid).then(setParticipations);
+      getUserGoalParticipations(user.uid).then(setgoals);
+    }
+  }, [user]);
+
+  const handleRemoveParticipation = async (studyId: string) => {
+    if (user?.uid) {
+      await removeStudyParticipation(user.uid, studyId);
+      setParticipations(participations.filter(p => p.id !== studyId)); // Remove from local state
+    }
+  };
+
+  const handleStudyClick = (studyId: string) => {
+    
+    if (!isNaN(Number(studyId))) 
       navigate(`/study/${studyId}`);
-    };
-    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      if (e.target.files && e.target.files[0]) {
-        setImage(e.target.files[0]);
+    else
+      navigate(`/studys/${studyId}`);
+   
+  };
+  const handleRemoveGoal = async (Id: string) => {
+    if (user?.uid) {
+      await removeGoalParticipation(user.uid, Id);
+      setgoals(participations.filter(p => p.id !== Id)); // Remove from local state
+    }
+  };
+
+  const handleGoalClick = (Id: string) => {
+    if (!isNaN(Number(Id)))
+      navigate(`/chal/${Id}`);
+    else
+      navigate(`/chals/${Id}`);
+  };
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setImage(e.target.files[0]);
+    }
+  };
+
+  const handleUpload = async () => {
+    if (!image || !user) return;
+
+    const storageRef = ref(storage, `profiles/${user.uid}/${image.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, image);
+
+    uploadTask.on(
+      'state_changed',
+      (snapshot) => { },
+      (error) => {
+        // Handle error
+        console.error(error);
+      },
+      async () => {
+        // Handle successful upload
+        const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+        await updateDoc(doc(db, 'users', user.uid), {
+          username: username,
+          profileImage: downloadURL,
+        });
+        dispatch(setuser({ ...user, username, profileImage: downloadURL }));
       }
-    };
-  
-    const handleUpload = async () => {
-      if (!image || !user) return;
-  
-      const storageRef = ref(storage, `profiles/${user.uid}/${image.name}`);
-      const uploadTask = uploadBytesResumable(storageRef, image);
-  
-      uploadTask.on(
-        'state_changed',
-        (snapshot) => {},
-        (error) => {
-          // Handle error
-          console.error(error);
-        },
-        async () => {
-          // Handle successful upload
-          const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-          await updateDoc(doc(db, 'users', user.uid), {
-            username :username,
-            profileImage: downloadURL,
-          });
-          dispatch(setuser({ ...user, username, profileImage: downloadURL }));
-        }
-        
-      );
-      setUsername("");
-    };
-    return(
-        <>
-        <Header/>
-        <Container>
-           
-            <ProfileImage src={user?.profileImage}/>
-            <UserName>{user?.username}</UserName>
-            <Input
+
+    );
+    setUsername("");
+  };
+  return (
+    <>
+      <Header />
+      <Container>
+
+        <ProfileImage src={user?.profileImage} />
+        <UserName>{user?.username}</UserName>
+        <Input
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           placeholder="사용자 이름"
         />
-            <input type="file" accept="image/*" onChange={handleImageChange} />
-            <Button onClick={handleUpload}>프로필 수정</Button>
-            {participations.map((participation) => (
+        <input type="file" accept="image/*" onChange={handleImageChange} />
+        <Button onClick={handleUpload}>프로필 수정</Button>
+        {participations.map((participation) => (
           <ListItem key={participation.id} onClick={() => handleStudyClick(participation.id)}>
             <h2>{participation.title}</h2>
             <Button onClick={(e) => { e.stopPropagation(); handleRemoveParticipation(participation.id); }}>제거</Button>
           </ListItem>
         ))}
-        </Container>
-        </>
-    );
+
+        {goals.map((goal) => (
+          <ListItem key={goal.id} onClick={() => handleGoalClick(goal.id)}>
+            <h2>{goal.title}</h2>
+            <Button onClick={(e) => { e.stopPropagation(); handleRemoveGoal(goal.id); }}>제거</Button>
+          </ListItem>
+        ))}
+      </Container>
+    </>
+  );
 }
 
 export default Mypage;
