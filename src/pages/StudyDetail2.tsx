@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import React from "react";
 import { useParams } from "react-router-dom";
-import {   addStudyParticipation, fetchStudy } from "../components/api";
+import { addStudyParticipation, fetchStudy } from "../components/api";
 import styled from "styled-components";
 import { CardProps } from "../components/Card";
 import BookMarkBtn from "../components/BookMarkBtn";
@@ -54,24 +54,24 @@ const StudyDetail2: React.FC = () => {
         queryFn: fetchStudy,
     });
     const userId = auth.currentUser?.uid;
-   
-    const study = data?.find(item => item.id === id! );
-    
+
+    const study = data?.find(item => item.id === id!);
+
     const mutation = useMutation({
         mutationFn: async () => {
-          if (userId && study) {
-            await addStudyParticipation(userId, study.id.toString(),study.title);
-          } else {
-            throw new Error("유저 ID 또는 스터디 정보를 찾을 수 없습니다.");
-          }
+            if (userId && study) { // 접속한 유저와 해당 스터디가 있을 시
+                await addStudyParticipation(userId, study.id.toString(), study.title); // 스터디 참여
+            } else {
+                throw new Error("유저 ID 또는 스터디 정보를 찾을 수 없습니다.");
+            }
         },
         onSuccess: () => {
-          alert("스터디에 성공적으로 참여했습니다.");
+            alert("스터디에 성공적으로 참여했습니다.");
         },
         onError: (error: Error) => {
-          alert(`스터디 참여 중 오류가 발생했습니다: ${error.message}`);
+            alert(`스터디 참여 중 오류가 발생했습니다: ${error.message}`);
         }
-      });
+    });
     return (
         <DetailContainer>
             {study ? (
@@ -82,9 +82,9 @@ const StudyDetail2: React.FC = () => {
                     {study.tag.map((t, idx) => (
                         <span key={idx}>{t}</span>
                     ))}
-                     <Btn>
-                    <BookMarkBtn userId={userId} studyId={study.id.toString()}/>
-                        <button onClick={() => mutation.mutate()}>스터디 참여하기</button>    
+                    <Btn>
+                        <BookMarkBtn userId={userId} studyId={study.id.toString()} />
+                        <button onClick={() => mutation.mutate()}>스터디 참여하기</button>
                     </Btn>
                 </>
             ) : (

@@ -35,7 +35,6 @@ const UserName = styled.div`
   margin-bottom: 5px;
 `;
 
-
 const Button = styled.button`
   padding: 10px 20px;
   border: none;
@@ -64,15 +63,6 @@ const ListItem = styled.div`
   }
 `;
 
-const LeaveButton = styled.div`
-  margin-top: 20px;
-  color: #dc3545;
-  cursor: pointer;
-
-  &:hover {
-    text-decoration: underline;
-  }
-`;
 const Input = styled.input`
     width:250px;
     height:30px;
@@ -91,14 +81,14 @@ const Mypage: React.FC = () => {
       getUserParticipations(user.uid).then(setParticipations);
       getUserGoalParticipations(user.uid).then(setgoals);
     }
-  }, [user]);
+  }, [user]);  // 사용자의 참여한 스터디와 목표 데이터를 가져와 상태를 업데이트합니다.
 
   const handleRemoveParticipation = async (studyId: string) => {
     if (user?.uid) {
       await removeStudyParticipation(user.uid, studyId);
-      setParticipations(participations.filter(p => p.id !== studyId)); // Remove from local state
+      setParticipations(participations.filter(p => p.id !== studyId)); 
     }
-  };
+  }; //해당스터디 제거하는 함수 
 
   const handleStudyClick = (studyId: string) => {
     
@@ -107,46 +97,43 @@ const Mypage: React.FC = () => {
     else
       navigate(`/studys/${studyId}`);
    
-  };
+  }; // studyId가 숫자인 경우와 그렇지 않은 경우에 따라 다른 경로로 이동
   const handleRemoveGoal = async (Id: string) => {
     if (user?.uid) {
       await removeGoalParticipation(user.uid, Id);
       setgoals(participations.filter(p => p.id !== Id)); // Remove from local state
     }
-  };
+  };// 해당 챌린지 제거하는 함수 
 
   const handleGoalClick = (Id: string) => {
     if (!isNaN(Number(Id)))
       navigate(`/chal/${Id}`);
     else
       navigate(`/chals/${Id}`);
-  };
+  };// Id가 숫자인 경우와 그렇지 않은 경우에 따라 다른 경로로 이동
+
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       setImage(e.target.files[0]);
     }
-  };
+  }; // 선택된 파일을 이미지 상태로 설정하는 함수
 
   const handleUpload = async () => {
-    if (!image || !user) return;
+    if (!image || !user) return; // 선택된 이미지나 접속유저가 없을시 종료
 
     const storageRef = ref(storage, `profiles/${user.uid}/${image.name}`);
     const uploadTask = uploadBytesResumable(storageRef, image);
-
+    // Firebase 스토리지에 프로필 이미지를 업로드
     uploadTask.on(
       'state_changed',
       (snapshot) => { },
-      (error) => {
-        // Handle error
-        console.error(error);
-      },
+      (error) => {console.error(error);},
       async () => {
-        // Handle successful upload
         const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
         await updateDoc(doc(db, 'users', user.uid), {
           username: username,
           profileImage: downloadURL,
-        });
+        }); 
         dispatch(setuser({ ...user, username, profileImage: downloadURL }));
       }
 

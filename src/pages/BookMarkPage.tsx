@@ -33,7 +33,7 @@ const BookMarkPage: React.FC = () => {
     const { data: studies = [] } = useQuery<CardProps[]>({
         queryKey: ["study"],
         queryFn: fetchStudys,
-        placeholderData: []
+        placeholderData: [] // 데이터 로드 전 임시로 빈 배열을 사용
     });
     const { data: studys = [] } = useQuery<CardProps[]>({
         queryKey: ["studys"],
@@ -52,7 +52,7 @@ const BookMarkPage: React.FC = () => {
         placeholderData: []
     });
     useEffect(() => {
-        
+
         const user = auth.currentUser;
         if (user) {
             setUserId(user.uid);
@@ -62,12 +62,12 @@ const BookMarkPage: React.FC = () => {
     useEffect(() => {
         const fetchBookmarks = async () => {
             if (userId) {
-                const bookmarkedItems = await getUserBookmarks(userId);
-                setBookmarks(bookmarkedItems);
+                const bookmarkedItems = await getUserBookmarks(userId); // 사용자의 북마크된 항목을 가져옴
+                setBookmarks(bookmarkedItems); // 가져온 북마크 항목을 상태에 저장
             }
         };
 
-        fetchBookmarks();
+        fetchBookmarks(); // 북마크 데이터를 가져오는 함수 호출
     }, [userId]);
 
     const bookmarkedItems = [
@@ -78,22 +78,22 @@ const BookMarkPage: React.FC = () => {
     ];
     return (
         <>
-        <Header/>
-        <Container>
-            <h1>찜한 항목들</h1>
-            {bookmarkedItems.length === 0 ? (
-                <p>찜한 항목이 없습니다.</p>
-            ) : (
-                bookmarkedItems.map(study => (
-                    <Card key={study.id}>
-                        <img src={study.img} alt={study.title} style={{ width: '100%', borderRadius: '10px' }} />
-                        <h2>{study.title}</h2>
-                        <p>{study.location}</p>
-                        <Link to={`/study/${study.id}`}><h3>상세보기</h3></Link>
-                    </Card>
-                ))
-            )}
-        </Container>
+            <Header />
+            <Container>
+                <h1>찜한 항목들</h1>
+                {bookmarkedItems.length === 0 ? (
+                    <p>찜한 항목이 없습니다.</p>
+                ) : (
+                    bookmarkedItems.map(study => (
+                        <Card key={study.id}>
+                            <img src={study.img} alt={study.title} style={{ width: '100%', borderRadius: '10px' }} />
+                            <h2>{study.title}</h2>
+                            <p>{study.location}</p>
+                            <Link to={`/study/${study.id}`}><h3>상세보기</h3></Link>
+                        </Card>
+                    ))
+                )}
+            </Container>
         </>
     );
 };

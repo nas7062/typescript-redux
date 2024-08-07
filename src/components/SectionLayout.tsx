@@ -38,11 +38,11 @@ interface LayoutProps {
     children: React.ReactNode;
     title: string;
     subtitle: string;
-    link :string
+    link: string
 }
-const SectionLayout: React.FC<LayoutProps> = ({ children, title, subtitle ,link }) => {
+const SectionLayout: React.FC<LayoutProps> = ({ children, title, subtitle, link }) => {
     const navigate = useNavigate();
-    const MoveHandler =() =>{
+    const MoveHandler = () => {
         navigate(`${link}`);
     }
     return (

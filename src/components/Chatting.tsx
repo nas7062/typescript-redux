@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ConnectToServer, disconnectFromServer, SendMessage } from '../socket/socket';
-import { SetUsername, SetMessage ,SetIsConnect, AddMessage} from '../reducer/ChatSlice';
+import { SetUsername, SetMessage, SetIsConnect, AddMessage } from '../reducer/ChatSlice';
 import styled from 'styled-components';
 import { RootState } from '../store/store';
 import { Link } from 'react-router-dom';
@@ -85,7 +85,7 @@ const Chatting = () => {
     const dispatch = useDispatch();
     const { username, message, dialog, isConnect } = useSelector((state: RootState) => state.chat);
     const { user, isAuthenticated } = useSelector((state: RootState) => state.auth);
-    const chatWindowRef = useRef<HTMLDivElement>(null);
+    const chatWindowRef = useRef<HTMLDivElement>(null); 
     console.log(dialog);
     useEffect(() => {
         return () => {
@@ -94,18 +94,19 @@ const Chatting = () => {
                 dispatch(SetIsConnect(false));
             }
         };
-    }, [isConnect, dispatch]);
+    }, [isConnect, dispatch]);  // 컴포넌트가 언마운트될 때 소켓 연결 종료 및 연결 상태 업데이트
+
     useEffect(() => {
         const handleMessage = (msg: { username: string, message: string }) => {
-            
+
             if (msg.username && msg.message) {
                 dispatch(AddMessage(msg));
             } else {
                 console.error('Unexpected message format:', msg);
             }
         };
-        
-        if (isConnect) {
+
+        if (isConnect) {  // 사용자 이름에 따라 소켓 서버에 연결
             const socket = ConnectToServer(isAuthenticated ? user?.username || '' : username);
             socket.on('message', handleMessage);
 
@@ -114,12 +115,12 @@ const Chatting = () => {
             };
         }
     }, [isConnect, dispatch, username, user, isAuthenticated]);
-   
+
     useEffect(() => {
         if (chatWindowRef.current) {
             chatWindowRef.current.scrollTop = chatWindowRef.current.scrollHeight;
         }
-    }, [dialog]);
+    }, [dialog]); // 채팅 창이 업데이트 될 때마다 스크롤을 가장 아래로 이동
 
     const handleSend = () => {
         if (message) {
@@ -129,7 +130,7 @@ const Chatting = () => {
     };
 
     const handleConnect = () => {
-         if (!isConnect && (isAuthenticated ? user?.username : username)) {
+        if (!isConnect && (isAuthenticated ? user?.username : username)) {
             dispatch(SetIsConnect(true));
         }
     };
@@ -137,53 +138,53 @@ const Chatting = () => {
         if (isConnect) {
             disconnectFromServer();
             dispatch(SetIsConnect(false));
-            if (isAuthenticated) 
+            if (isAuthenticated)
                 dispatch(logout());
         }
     };
-    
+
     return (
         <Container>
-            <Link to ="/"><h2>10012</h2></Link>
-        <Header>
-            {!isAuthenticated ? (
+            <Link to="/"><h2>10012</h2></Link>
+            <Header>
+                {!isAuthenticated ? (
+                    <Input
+                        type="text"
+                        placeholder="사용자 이름 입력"
+                        value={username}
+                        onChange={(e) => {
+                            dispatch(SetUsername(e.target.value));
+                        }}
+                    />
+                ) : (
+                    <Connected><h2>{user && user.username}님</h2></Connected>
+                )}
+                <Button onClick={handleConnect}>연결</Button>
+                <Button onClick={handleDisconnect}>
+                    연결 해제
+                </Button>
+            </Header>
+
+            <ChatWindow ref={chatWindowRef}>
+                <MessageContainer>
+                    {dialog.map((msg: any, index: number) => (
+                        <Message key={index} isUser={msg.username === (isAuthenticated ? user?.username : username)}>
+                            <strong>{msg.username}:</strong> {msg.message}
+                        </Message>
+                    ))}
+                </MessageContainer>
+            </ChatWindow>
+
+            <InputContainer>
                 <Input
                     type="text"
-                    placeholder="사용자 이름 입력"
-                    value={username}
-                    onChange={(e) => {
-                        dispatch(SetUsername(e.target.value));
-                    }}
+                    placeholder="메시지 입력"
+                    value={message}
+                    onChange={(e) => dispatch(SetMessage(e.target.value))}
                 />
-            ) : (
-                <Connected><h2>{user&& user.username}님</h2></Connected>
-            )}
-            <Button onClick={handleConnect}>연결</Button>
-            <Button onClick={handleDisconnect}>
-                연결 해제
-            </Button>
-        </Header>
-
-        <ChatWindow ref={chatWindowRef}>
-            <MessageContainer>
-                {dialog.map((msg: any, index: number) => (
-                    <Message key={index} isUser={msg.username === (isAuthenticated ? user?.username : username)}>
-                        <strong>{msg.username}:</strong> {msg.message}
-                    </Message>
-                ))}
-            </MessageContainer>
-        </ChatWindow>
-
-        <InputContainer>
-            <Input
-                type="text"
-                placeholder="메시지 입력"
-                value={message}
-                onChange={(e) => dispatch(SetMessage(e.target.value))}
-            />
-            <Button onClick={handleSend}>전송</Button>
-        </InputContainer>
-    </Container>
+                <Button onClick={handleSend}>전송</Button>
+            </InputContainer>
+        </Container>
     );
 };
 

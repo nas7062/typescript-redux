@@ -72,6 +72,7 @@ const StudyDetail: React.FC= () => {
           alert(`스터디 참여 중 오류가 발생했습니다: ${error.message}`);
         }
       });
+      
     return (
         <DetailContainer>
             {study && (

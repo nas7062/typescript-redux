@@ -4,10 +4,11 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchNotice } from "../components/api";
 import styled from "styled-components";
 import { NotiProps } from "./Notice";
+import Header from "../components/Header";
 
 const DetailContainer = styled.div`
     width: 800px;
-    margin: 20px auto;
+    margin: 100px auto;
     padding: 20px;
     border: 1px solid #ddd;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -29,18 +30,21 @@ const NoticeDetail: React.FC = () => {
         queryKey: ["data"],
         queryFn: fetchNotice,
     });
-    
+
     const noti = data?.find(item => item.id === parseInt(id!));
     return (
-        <DetailContainer>
-            {noti && <>
-            
-            <Title>{noti.title}</Title>
-            <p><strong>Author:</strong> {noti.name}</p>
-            {noti.img && <img src={noti.img} alt={noti.title} />}
-            <Content>{noti.descript}</Content>
-            </>}
-        </DetailContainer>
+        <>
+            <Header />
+            <DetailContainer>
+                {noti && 
+                <>
+                    <Title>{noti.title}</Title>
+                    <p><strong>Author:</strong> {noti.name}</p>
+                    {noti.img && <img src={noti.img} alt={noti.title} />}
+                    <Content>{noti.descript}</Content>
+                </>}
+            </DetailContainer>
+        </>
     );
 };
 

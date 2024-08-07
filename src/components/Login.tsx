@@ -52,7 +52,7 @@ const Button = styled.button`
 
 const Login: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { loading ,isAuthenticated } = useSelector((state: RootState) => state.auth);
+  const { loading, isAuthenticated } = useSelector((state: RootState) => state.auth);
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -65,12 +65,12 @@ const Login: React.FC = () => {
     if (isAuthenticated) {
       const timeout = setTimeout(() => {
         navigate('/');
-      }, 1000);
-      return () => clearTimeout(timeout);
+      }, 1000); // 로그인이 성공되면 1초후에  홈으로 이동시킴 
+      return () => clearTimeout(timeout);   // 클린업 함수: 컴포넌트가 언마운트될 때 타이머를 제거하여 메모리 누수를 방지함
     }
-  }, [navigate,isAuthenticated]);
+  }, [navigate, isAuthenticated]);
 
-  
+
   return (
     <LoginContainer>
       <LoginForm onSubmit={handleLogin}>
@@ -93,7 +93,7 @@ const Login: React.FC = () => {
           {loading ? '로그인 중...' : '로그인'}
         </Button>
         <Link to={"/auth"}>
-        <p>아이디가 없으신가요? 회원가입하러 가기</p>
+          <p>아이디가 없으신가요? 회원가입하러 가기</p>
         </Link>
       </LoginForm>
     </LoginContainer>

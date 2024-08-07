@@ -4,7 +4,7 @@ import Header from "../components/Header";
 import styled from "styled-components";
 import { CardProps } from "../components/Card";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import {   uploadImage, fetchStudy, addStudys } from "../components/api";
+import { uploadImage, fetchStudy, addStudys } from "../components/api";
 import StudyList from "../components/StudyList";
 const FeedSec = styled.div`
     
@@ -68,8 +68,8 @@ const Study = () => {
         mutationFn: async () => {
             try {
                 if (formData.img2) {
-                    const imgUrl = await uploadImage(formData.img2);
-                    await addStudys({ ...formData, img: imgUrl });
+                    const imgUrl = await uploadImage(formData.img2); // 이미지를 업로드하고 URL을 받아옴
+                    await addStudys({ ...formData, img: imgUrl }); // 새로운 데이터를 추가
                 } else {
                     throw new Error("No image selected");
                 }
@@ -80,7 +80,7 @@ const Study = () => {
             }
         },
         onSuccess: () => {
-            queryClient.invalidateQueries("studys");
+            queryClient.invalidateQueries("studys");// 스터디 목록 쿼리 무효화하여 최신 데이터로 갱신
             setFormData({ ...formData, img2: undefined, tag: [], title: "", location: "" });
             setFormVisible(false);
         },
@@ -98,7 +98,7 @@ const Study = () => {
     const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            await mutation.mutateAsync();
+            await mutation.mutateAsync();// 폼 제출 시 뮤테이션 실행
 
         } catch (error) {
             console.error("Failed to submit form:", error);
