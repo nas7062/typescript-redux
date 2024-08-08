@@ -29,7 +29,7 @@
             io.emit(`new message`,{username:"관리자" ,message:`${username}님이 나갔습니다.`});
         })
     });
-    const PORT = process.env.PORT || 3000;
+    const PORT = process.env.PORT || 443;
     server.listen( PORT, ()=>{
         console.log("서버 연결.. ");
     });
