@@ -6,19 +6,19 @@ import { CardProps } from '../components/Card';
 
 
 export async function fetchDatas() {
-  return await axios.get("../../public/utils/FeedData.json")
+  return await axios.get("/utils/FeedData.json")
     .then((res) => res.data.feed);
 }
 export async function fetchStudys() {
-  return await axios.get("../../public/utils/FeedData.json")
+  return await axios.get("/utils/FeedData.json")
     .then((res) => res.data.study);
 }
 export async function fetchGoal() {
-  return await axios.get("../../public/utils/FeedData.json")
+  return await axios.get("/utils/FeedData.json")
     .then((res) => res.data.goal);
 }
 export async function fetchNotice() {
-  return await axios.get("../../public/utils/NoticeData.json")
+  return await axios.get("/utils/NoticeData.json")
     .then((res) => res.data.notice);
 }
 export const fetchDocuments = async (collectionName: string): Promise<CardProps[]> => {
@@ -129,7 +129,7 @@ export const removeStudyParticipation = async (userId: string, studyId: string) 
   const participationRef = doc(db, 'users', userId, 'participations', studyId);
   try {
     await deleteDoc(participationRef);
-    
+
   } catch (error) {
     console.error("Error removing study participation:");
   }
