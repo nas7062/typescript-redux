@@ -65,9 +65,13 @@ export const loginUser = createAsyncThunk<User, LoginArgs>(
       const user = credential.user;
       const userDocRef = doc(db, 'users', user.uid);
       const userDocSnap = await getDoc(userDocRef);
+      
       if (userDocSnap.exists()) {
         const userData = userDocSnap.data();
         return { uid: user.uid, email: user.email, username: userData.username, profileImage: userData.profileImage };
+      }
+      else {
+        return rejectWithValue('User document does not exist');
       }
     } catch (error: any) {
       return rejectWithValue(error.message);

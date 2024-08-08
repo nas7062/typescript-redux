@@ -129,7 +129,7 @@ export const removeStudyParticipation = async (userId: string, studyId: string) 
   const participationRef = doc(db, 'users', userId, 'participations', studyId);
   try {
     await deleteDoc(participationRef);
-
+    
   } catch (error) {
     console.error("Error removing study participation:");
   }
