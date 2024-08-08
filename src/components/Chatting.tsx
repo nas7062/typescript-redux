@@ -109,7 +109,7 @@ const Chatting = () => {
         if (isConnect) {  // 사용자 이름에 따라 소켓 서버에 연결
             const socket = ConnectToServer(isAuthenticated ? user?.username || '' : username);
             socket.on('message', handleMessage);
-
+                console.log(username,user?.username);
             return () => {
                 socket.off('message', handleMessage);
             };
