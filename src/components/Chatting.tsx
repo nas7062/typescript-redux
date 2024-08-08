@@ -86,7 +86,7 @@ const Chatting = () => {
     const { username, message, dialog, isConnect } = useSelector((state: RootState) => state.chat);
     const { user, isAuthenticated } = useSelector((state: RootState) => state.auth);
     const chatWindowRef = useRef<HTMLDivElement>(null); 
-    console.log(dialog);
+   
     useEffect(() => {
         return () => {
             if (isConnect) {
@@ -133,6 +133,7 @@ const Chatting = () => {
         if (!isConnect && (isAuthenticated ? user?.username : username)) {
             dispatch(SetIsConnect(true));
         }
+        console.log(isConnect);
     };
     const handleDisconnect = () => {
         if (isConnect) {
