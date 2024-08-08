@@ -9,7 +9,7 @@ export const ConnectToServer = (username: string) => {
         socket = io('https://10012-trd.vercel.app', {
             autoConnect: false,
             query: { username },
-            transports: ['websocket']
+            transports: ['websocket','polling']
         },
 
         );

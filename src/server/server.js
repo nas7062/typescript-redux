@@ -7,8 +7,8 @@
     const io = new Server(server,{
         cors :{
             origin: "*"
-        }
-
+        },
+        transports: ['websocket','polling']
     });
 
     io.on('connection', (client)=>{
