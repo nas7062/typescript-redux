@@ -6,7 +6,7 @@
     const server = http.createServer(app);
     const io = new Server(server,{
         cors :{
-            origin: "*"
+            origin:  "https://10012-trd.vercel.app"
         },
         transports: ['websocket','polling']
     });
