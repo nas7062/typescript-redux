@@ -6,7 +6,7 @@
     const server = http.createServer(app);
     const io = new Server(server,{
         cors :{
-            origin:  "https://10012-trd.vercel.app",
+            origin:  "https://10012-trd.vercel.app/",
             methods: ["GET", "POST"],
             allowedHeaders: ["Content-Type", "Authorization"]
         }
