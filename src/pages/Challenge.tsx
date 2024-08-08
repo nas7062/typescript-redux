@@ -80,7 +80,7 @@ const Challenge = () => {
             }
         },
         onSuccess: () => {
-            queryClient.invalidateQueries("challenges");
+            queryClient.invalidateQueries({ queryKey: ["challenges"] });
             setFormData({ ...formData, img2: undefined, tag: [], title: "", location: "" });
             setFormVisible(false);
         },
