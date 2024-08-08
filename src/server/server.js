@@ -1,16 +1,16 @@
     import { Server } from 'socket.io';
     import express from "express";
     import * as http from "http";
-    import ViteExpress from "vite-express";
+    //import ViteExpress from "vite-express";
     const app = express();
     const server = http.createServer(app);
-    const io = new Server(server,{
-        cors :{
-            origin:  "https://10012-trd.vercel.app/",
+    const io = new Server(server, {
+        path: "/socket.io/", // 경로 지정
+        cors: {
+            origin: "https://10012-trd.vercel.app",
             methods: ["GET", "POST"],
             allowedHeaders: ["Content-Type", "Authorization"]
         }
-      
     });
 
     io.on('connection', (client)=>{
@@ -35,4 +35,4 @@
     });
 
 
-    ViteExpress.bind(app,server);
+   // ViteExpress.bind(app,server);
