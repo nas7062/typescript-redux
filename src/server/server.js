@@ -9,8 +9,8 @@
             origin:  "https://10012-trd.vercel.app",
             methods: ["GET", "POST"],
             allowedHeaders: ["Content-Type", "Authorization"]
-        },
-        transports: ['websocket','polling']
+        }
+      
     });
 
     io.on('connection', (client)=>{
