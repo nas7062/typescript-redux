@@ -37,7 +37,7 @@ export const fetchDocuments = async (collectionName: string): Promise<CardProps[
   });
 
   return data;
-};
+}; // Firestore에서 컬렉션의 문서를 가져오는 함수
 export const fetchFeeds = async (): Promise<CardProps[]> => {
   return fetchDocuments("feeds");
 };
@@ -53,7 +53,7 @@ export const uploadImage = async (file: File): Promise<string> => {
   await uploadBytes(storageRef, file);
   const url = await getDownloadURL(storageRef);
   return url;
-};
+}; // 이미지를 Firebase Storage에 업로드하고 URL을 반환하는 함수
 
 export const addDocument = async (collectionName: string, formData: Omit<CardProps, "id">): Promise<void> => {
   try {
@@ -75,7 +75,7 @@ export const addDocument = async (collectionName: string, formData: Omit<CardPro
   } catch (error) {
     console.error(`${collectionName} 추가 실패:`, error);
   }
-};
+}; // Firestore에 문서를 추가하는 함수 
 export const addFeed = async (formData: Omit<CardProps, "id">): Promise<void> => {
   await addDocument("feeds", formData);
 };
@@ -91,46 +91,47 @@ export const getUserBookmarks = async (userId: string): Promise<string[]> => {
   const bookmarks: string[] = [];
   snapshot.forEach(doc => bookmarks.push(doc.id));
   return bookmarks;
-};
+}; // 사용자의 북마크된 문서 ID 목록을 가져오는 함수
 
 export const addBookmark = async (userId: string, studyId: string) => {
   const bookmarkRef = doc(db, 'users', userId, 'bookmarks', studyId);
   try {
-      await setDoc(bookmarkRef, { added: true });
+    await setDoc(bookmarkRef, { added: true });
   } catch (error) {
-      console.error("Error adding bookmark:", error);
+    console.error("Error add bookmark:");
   }
-};
+}; // 북마크 추가
 
-// 찜 목록 제거
+
 export const removeBookmark = async (userId: string, studyId: string) => {
   const bookmarkRef = doc(db, 'users', userId, 'bookmarks', studyId);
   try {
-      await deleteDoc(bookmarkRef);
+    await deleteDoc(bookmarkRef);
   } catch (error) {
-      console.error("Error removing bookmark:", error);
+    console.error("Error remove bookmark:");
   }
-};
+}; // 북마크 목록 제거
 
-export const addStudyParticipation = async (userId: string, studyId: string,title: string) => {
+export const addStudyParticipation = async (userId: string, studyId: string, title: string) => {
   const participationRef = doc(db, 'users', userId, 'participations', studyId);
 
   try {
     await runTransaction(db, async (transaction) => {
-      transaction.set(participationRef, { joined: true ,title });
+      transaction.set(participationRef, { joined: true, title });
     });
-    console.log(`Successfully added participation for user ${userId} in study ${studyId}`);
+    console.log(`Successfully  ${userId} in study ${studyId}`);
   } catch (error) {
-    console.error("Error adding study participation:", error);
+    console.error("Error adding study participation:");
   }
 };
+
 export const removeStudyParticipation = async (userId: string, studyId: string) => {
   const participationRef = doc(db, 'users', userId, 'participations', studyId);
   try {
-      await deleteDoc(participationRef);
-      
+    await deleteDoc(participationRef);
+
   } catch (error) {
-      console.error("Error removing study participation:", error);
+    console.error("Error removing study participation:");
   }
 };
 export const getUserParticipations = async (userId: string) => {
@@ -139,35 +140,37 @@ export const getUserParticipations = async (userId: string) => {
 
   const participations = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
   console.log("Participations:", participations);
-  
-  return participations;
-};  
 
-export const addGoalParticipation = async (userId: string, studyId: string,title: string) => {
+  return participations;
+};
+
+export const addGoalParticipation = async (userId: string, studyId: string, title: string) => {
   const participationRef = doc(db, 'users', userId, 'goalparticipations', studyId);
 
   try {
     await runTransaction(db, async (transaction) => {
-      transaction.set(participationRef, { joined: true ,title });
+      transaction.set(participationRef, { joined: true, title });
     });
   } catch (error) {
-    console.error("Error adding study participation:", error);
+    console.error("Error adding study participation:");
   }
 };
+
 export const removeGoalParticipation = async (userId: string, studyId: string) => {
   const participationRef = doc(db, 'users', userId, 'goalparticipations', studyId);
   try {
-      await deleteDoc(participationRef);
-      
+    await deleteDoc(participationRef);
+
   } catch (error) {
-      console.error("Error removing study participation:", error);
+    console.error("Error removing study participation:");
   }
 };
+
 export const getUserGoalParticipations = async (userId: string) => {
   const participationsRef = collection(db, 'users', userId, 'goalparticipations');
   const snapshot = await getDocs(participationsRef);
 
   const goalparticipations = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-  
+
   return goalparticipations;
 };  
