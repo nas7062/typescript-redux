@@ -1,7 +1,7 @@
 import React from "react";
 import { CardProps } from "./Card";
 import { useQuery } from "@tanstack/react-query";
-import { fetchGoal, fetchStudy, fetchStudys } from "./api";
+import {  fetchStudys } from "./api";
 import Feed from "./Feed";
 import styled from "styled-components";
 import { Link } from "react-router-dom";

@@ -80,7 +80,7 @@ const Feed = () => {
             }
         },
         onSuccess: () => {
-            queryClient.invalidateQueries("feeds");
+            queryClient.invalidateQueries({ queryKey: ["feeds"] });
             setFormData({ ...formData, img2: undefined, tag: [], title: "", location: "" });
             setFormVisible(false);
         },

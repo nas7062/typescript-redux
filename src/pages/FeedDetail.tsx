@@ -1,12 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useId } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
 import { CardProps } from "../components/Card";
 import { fetchDatas } from "../components/api";
 import styled from "styled-components";
-import BookMarkPage from "./BookMarkPage";
-import { auth } from "../firebaseConfig";
-import BookMarkBtn from "../components/BookMarkBtn";
 
 const DetailContainer = styled.div`
     width: 800px;

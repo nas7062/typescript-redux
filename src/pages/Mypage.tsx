@@ -126,15 +126,15 @@ const Mypage: React.FC = () => {
     // Firebase 스토리지에 프로필 이미지를 업로드
     uploadTask.on(
       'state_changed',
-      (snapshot) => { },
+      () => { },
       (error) => {console.error(error);},
       async () => {
-        const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+        const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);   // 업로드 성공 시 다운로드 URL을 가져와 Firestore에 저장
         await updateDoc(doc(db, 'users', user.uid), {
           username: username,
           profileImage: downloadURL,
-        }); 
-        dispatch(setuser({ ...user, username, profileImage: downloadURL }));
+        });  //firestore 업데이트 
+        dispatch(setuser({ ...user, username, profileImage: downloadURL })); // Redux 상태 업데이트
       }
 
     );

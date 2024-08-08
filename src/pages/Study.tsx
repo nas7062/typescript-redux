@@ -80,7 +80,7 @@ const Study = () => {
             }
         },
         onSuccess: () => {
-            queryClient.invalidateQueries("studys");// 스터디 목록 쿼리 무효화하여 최신 데이터로 갱신
+            queryClient.invalidateQueries({ queryKey: ["studys"] });// 스터디 목록 쿼리 무효화하여 최신 데이터로 갱신
             setFormData({ ...formData, img2: undefined, tag: [], title: "", location: "" });
             setFormVisible(false);
         },

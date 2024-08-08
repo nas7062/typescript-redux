@@ -29,26 +29,26 @@ const Td = styled.td`
   width:100px;
 `;
 
-const Noti:React.FC<NotiProps> = ({id,img,title,name,descript}) =>{
+const Noti: React.FC<NotiProps> = ({ id, title, name }) => {
 
-    return(
-        <Table>
-        <Thead>
-          <Tr>
-            <Th>ID</Th>
-            <Th>Title</Th>
-            <Th>Name</Th>
-          </Tr>
-        </Thead>
-        <tbody>
-          <Tr>
-            <Td>{id}</Td>
-            <Td>{title}</Td>
-            <Td>{name}</Td>
-          </Tr>
-        </tbody>
-      </Table>
-        );
+  return (
+    <Table>
+      <Thead>
+        <Tr>
+          <Th>ID</Th>
+          <Th>Title</Th>
+          <Th>Name</Th>
+        </Tr>
+      </Thead>
+      <tbody>
+        <Tr>
+          <Td>{id}</Td>
+          <Td>{title}</Td>
+          <Td>{name}</Td>
+        </Tr>
+      </tbody>
+    </Table>
+  );
 }
 
 export default Noti;

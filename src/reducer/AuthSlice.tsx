@@ -35,8 +35,10 @@ interface LoginArgs {
   password: string;
 }
 
+type RegisterUserThunk = ReturnType<typeof createAsyncThunk<User, RegisterArgs>>;
+type LoginUserThunk = ReturnType<typeof createAsyncThunk<User, LoginArgs>>;
 
-export const registerUser = createAsyncThunk<User, RegisterArgs>(
+export const registerUser: RegisterUserThunk = createAsyncThunk<User, RegisterArgs>(
   'auth/registerUser',
   async ({ email, password, username }, { rejectWithValue }) => {
     try {
@@ -56,8 +58,8 @@ export const registerUser = createAsyncThunk<User, RegisterArgs>(
   }
 );
 
-// Define the async thunk for user login
-export const loginUser = createAsyncThunk<User, LoginArgs>(
+
+export const loginUser: LoginUserThunk = createAsyncThunk<User, LoginArgs>(
   'auth/loginUser',
   async ({ email, password }, { rejectWithValue }) => {
     try {
@@ -68,9 +70,13 @@ export const loginUser = createAsyncThunk<User, LoginArgs>(
       
       if (userDocSnap.exists()) {
         const userData = userDocSnap.data();
-        return { uid: user.uid, email: user.email, username: userData.username, profileImage: userData.profileImage };
-      }
-      else {
+        return { 
+          uid: user.uid, 
+          email: user.email, 
+          username: userData.username, 
+          profileImage: userData.profileImage 
+        };
+      } else {
         return rejectWithValue('User document does not exist');
       }
     } catch (error: any) {
