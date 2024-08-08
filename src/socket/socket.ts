@@ -6,7 +6,7 @@ let socket: Socket | null = null;
 
 export const ConnectToServer = (username: string) => {
     if (!socket) {
-        socket = io("https://10012-trd.vercel.app", {
+        socket = io("https://10012-trd.vercel.app:3000", {
             autoConnect: false,
             path: "/socket.io/",
             query: { username },
