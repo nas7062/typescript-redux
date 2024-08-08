@@ -9,10 +9,10 @@ const GoalSection = () => {
     return (
         <SectionLayout title="챌린지" subtitle="새로운 사람들과 함께 어려운 챌린지에 도전해봐요!" link="/ch" >
             {Array.isArray(data) &&
-                data.slice(0,4).map((item: CardProps) => 
+                data.slice(0, 4).map((item: CardProps) =>
                     <Link to={`/chal/${item.id}`}>
-                <Card key={item.id} {...item} />
-                </Link>
+                        <Card key={item.id} {...item} />
+                    </Link>
                 )}
         </SectionLayout>
     );

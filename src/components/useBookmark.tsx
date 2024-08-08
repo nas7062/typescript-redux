@@ -9,14 +9,14 @@ const useBookmark = (userId: string | undefined, studyId: string | undefined) =>
             if (userId && studyId) {
                 try {
                     const bookmarks = await getUserBookmarks(userId);
-                    setIsBookmarked(bookmarks.includes(studyId)); // 해당 id가 북마크되어 있는지 확인하고 상태 업데이트
+                    setIsBookmarked(bookmarks.includes(studyId)); // 해당 Studyid가 북마크되어 있는지 확인하고 상태 업데이트
                 } catch (error) {
                     console.error("Error checking bookmarks:", error);
                 }
             }
         };
 
-        checkIfBookmarked();
+        checkIfBookmarked(); // 컴포넌트가 처음 렌더링 되거나 userId 또는 studyId가 변경될 때 북마크 상태 확인
     }, [userId, studyId]);
 
     const toggleBookmark = async () => {

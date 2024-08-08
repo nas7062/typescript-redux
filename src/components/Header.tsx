@@ -65,21 +65,21 @@ const Header: React.FC = () => {
             <TopBar>
                 <ul>
                     {!isAuthenticated ? <Link to={"/login"}><li>로그인</li></Link>
-                     :<li onClick={()=>dispatch(logout())}>로그아웃</li>
+                        : <li onClick={() => dispatch(logout())}>로그아웃</li>
                     }
                     <Link to={"/auth"}><li>회원가입</li></Link>
-                    <Link to ="/notice"><li>공지사항</li></Link>
+                    <Link to="/notice"><li>공지사항</li></Link>
                 </ul>
             </TopBar>
             <NavBar>
                 <h2><Link to={"/"}>10012</Link></h2>
                 <input type="text" placeholder="지금 생각나는 단어를 검색해봐요!" />
-                <NavBtn img={feed} text="피드"  lk= "feed"/>
-                <NavBtn img={meet} text="스터디"  lk= "study" />
-                <NavBtn img={goal} text="챌린지"   lk= "ch"/>
-                <NavBtn img={msg} text="메세지"  lk= "chat"/>
-                <NavBtn img={heart} text="찜"  lk= "book"/>
-                <NavBtn img={my} text="마이" lk= "my" />
+                <NavBtn img={feed} text="피드" lk="feed" />
+                <NavBtn img={meet} text="스터디" lk="study" />
+                <NavBtn img={goal} text="챌린지" lk="ch" />
+                <NavBtn img={msg} text="메세지" lk="chat" />
+                <NavBtn img={heart} text="찜" lk="book" />
+                <NavBtn img={my} text="마이" lk="my" />
             </NavBar>
 
         </div>

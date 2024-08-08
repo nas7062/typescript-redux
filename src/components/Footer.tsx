@@ -27,9 +27,9 @@ const FooterThree = styled.div`
     flex:0.4;
     margin-top:100px;
 `
-const Footer = () =>{
+const Footer = () => {
 
-    return(
+    return (
         <FooterSec>
             <FooterOne>
                 <p>10012</p>

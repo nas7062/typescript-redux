@@ -1,7 +1,7 @@
 [
     {
       "origin": ["https://10012-trd.vercel.app"],
-      "method": ["GET", "POST", "PUT", "DELETE", "HEAD"],
+      "method": ["GET", "POST", "PUT", "DELETE"],
       "maxAgeSeconds": 3600,
       "responseHeader": ["Content-Type", "Authorization"]
     }

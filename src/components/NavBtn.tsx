@@ -17,7 +17,6 @@ const Nbtn = styled.div`
     p  {
         font-size:0.7rem;
         margin-top:0px;
-        
     }
     
 `
