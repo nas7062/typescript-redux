@@ -5,7 +5,7 @@
     const app = express();
     const server = http.createServer(app);
     const io = new Server(server, {
-        path: "/socket.io/", // 경로 지정
+        path: "/socket.io/", 
         cors: {
             origin: "https://10012-trd.vercel.app",
             methods: ["GET", "POST"],
@@ -28,6 +28,13 @@
             console.log(`${username}가 나갔습니다`);
             io.emit(`new message`,{username:"관리자" ,message:`${username}님이 나갔습니다.`});
         })
+        socket.on('connect_error', (error) => {
+            console.error('Connection Error:', error);
+        });
+        
+        socket.on('connect_timeout', () => {
+            console.error('Connection Timeout');
+        });
     });
    
     server.listen( 3000, ()=>{
