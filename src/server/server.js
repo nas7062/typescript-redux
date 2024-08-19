@@ -1,7 +1,7 @@
     import { Server } from 'socket.io';
     import express from "express";
     import * as http from "http";
-    import ViteExpress from "vite-express";
+    // import ViteExpress from "vite-express";
     const app = express();
     const server = http.createServer(app);
     const io = new Server(server, {
@@ -28,18 +28,14 @@
             console.log(`${username}가 나갔습니다`);
             io.emit(`new message`,{username:"관리자" ,message:`${username}님이 나갔습니다.`});
         })
-        socket.on('connect_error', (error) => {
-            console.error('Connection Error:', error);
-        });
         
-        socket.on('connect_timeout', () => {
-            console.error('Connection Timeout');
-        });
     });
    
-    server.listen( 3000, ()=>{
-        console.log("서버 연결.. ");
+    const PORT = process.env.PORT || 3000;
+
+    server.listen(PORT, () => {
+        console.log(`서버 연결.. 포트 ${PORT}`);
     });
 
 
- ViteExpress.bind(app,server);
+// ViteExpress.bind(app,server);
