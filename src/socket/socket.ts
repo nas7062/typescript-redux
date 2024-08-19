@@ -6,7 +6,7 @@ let socket: Socket | null = null;
 
 export const ConnectToServer = (username: string) => {
     if (!socket) {
-        socket = io("https://your-ec2-13.59.107.97", {
+        socket = io("https://your-ec2-13.59.107.97:3000", {
             autoConnect: false,
             path: "/socket.io/",
             query: { username },
