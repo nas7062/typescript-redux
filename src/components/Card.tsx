@@ -50,6 +50,86 @@ const CardSec = styled.div`
         padding:5px 10px;
         
     }
+        @media (max-width: 1568px) {
+        height: 350px;
+        display:inline-block;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom:20px;
+        width:250px;
+        
+        img {
+            width: 100%;
+            height: 175px;
+            border-radius: 10px 10px 0 0;
+        }
+
+        h2, p {
+            position: relative;
+            left: 0;
+            top: 0;
+            width: 100%;
+            transform: none;
+        }
+
+        span {
+            display:none;
+        }
+    }
+         @media (max-width: 1158px) {
+        height: 350px;
+        display:inline-block;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom:20px;
+        width:200px;
+        
+        img {
+            width: 100%;
+            height: 175px;
+            border-radius: 10px 10px 0 0;
+        }
+
+        h2, p {
+            position: relative;
+            left: 0;
+            top: 0;
+            width: 100%;
+            transform: none;
+        }
+
+        span {
+            display:none;
+        }
+    }
+    @media (max-width: 968px) {
+        height: 400px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width:400px;
+        img {
+            width: 100%;
+            height: 350px;
+            border-radius: 10px 10px 0 0;
+        }
+
+        h2, p {
+            position: relative;
+            left: 0;
+            top: 0;
+            width: 100%;
+            transform: none;
+        }
+
+        span {
+            position: relative;
+            left: 0;
+            bottom: 0;
+            transform: none;
+            margin: 5px;
+        }
+    }    
 `
 const Card: React.FC<CardProps> = ({ id, img, tag, title, location }) => {
 

@@ -8,6 +8,10 @@ const FooterSec = styled.div`
     display:flex;
     text-align:center;
     font-weight:600;
+     @media (max-width: 680px) {
+        display:none;
+        
+    }
 `
 const FooterOne = styled.div`
     display:inline-block;

@@ -7,16 +7,58 @@ const FeedSec = styled.div`
     display:inline-block;
     position:relative;
     left:150px;
-    
+     @media (max-width: 1568px) {
+        left:50px;
+        
+    }
+    @media (max-width: 968px) {
+        left:150px;
+        
+    }
+    @media (max-width: 788px) {
+        left:50px;
+        
+    }
+    @media (max-width: 580px) {
+        left:0px;
+        
+    }
 `
 const PartSec = styled.div`
-    margin-top:200px;
+    
     position:relative;
     left:100px;
     width:1700px;
     height:700px;
     background-color:#D2D2FF;
     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    margin:150px auto;
+    @media (max-width: 1568px) {
+        width: 80%;
+        height: auto;
+    }
+
+    @media (max-width: 1358px) {
+        width: 90%;
+        padding: 15px;
+    }
+
+    @media (max-width: 1180px) {
+        width: 100%;
+        
+        padding: 10px;
+    }
+    @media (max-width: 780px) {
+        width: 100%;
+        
+        padding: 10px;
+        
+    }
+    @media (max-width: 580px) {
+        left:0px;
+        
+    }
+    
     button {
         text-align:center;
         position:absolute;
@@ -27,12 +69,22 @@ const PartSec = styled.div`
         font-size:1.1rem;
         border-radius:10px;
         box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+         @media (max-width: 768px) {
+            font-size: 0.9rem;
+            padding: 8px 15px;
+            left:200px;
+        }
+
         
     }
 `
 const Text = styled.div`
     text-align:center;
-    
+     @media (max-width: 780px) {
+        font-size:0.8rem;
+        position:relative;
+        left:-50px;
+    }
 `
 interface LayoutProps {
     children: React.ReactNode;

@@ -14,7 +14,16 @@ const Msec = styled.div<MsecProps>`
     justify-content: center;
     align-items: center;
     font-size:1.8rem;
+     @media (max-width: 768px) {
 
+        h2 {
+            font-size: 1.3rem;
+        }
+        h3{
+        font-size: 1.3rem;
+        }
+        
+    }
 `
 const MainSection = () => {
 

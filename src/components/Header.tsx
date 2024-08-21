@@ -21,17 +21,26 @@ const TopBar = styled.div`
     ul{
         position:relative;
         display:flex;
-        left:50%;
+        left:40%;
         padding:5px 0px;
     }    
         
-
     li{
         margin-left:100px;
         list-style:none;
         font-weight:600;
         font-size:0.8rem;
         cursor:pointer;
+    }
+    @media (max-width: 968px) {
+        ul {
+            flex-direction: column;
+            align-items: center;
+        }
+        li {
+            margin: 10px 0;
+            font-size: 0.9rem;
+        }
     }
 `
 const NavBar = styled.div`
@@ -55,8 +64,33 @@ const NavBar = styled.div`
         border:0px solid #dcdcdc;
         
     }
+    @media (max-width: 768px) {
+
+        width:600px;
+        h2 {
+            font-size: 2.0rem;
+            margin-right: 0;
+        }
+
+        input {
+            width: 20%;
+        }
+    }
+
+    @media (max-width: 580px) {
+       
+        input {
+            display:none;
+
+        }
+
+        h2 {
+            font-size: 1.5rem;
+        }
+    }
     
 `
+
 const Header: React.FC = () => {
     const { isAuthenticated } = useSelector((state: RootState) => state.auth);
     const dispatch = useDispatch<AppDispatch>();
