@@ -43,6 +43,8 @@
   <img width="500" height="300" src ="https://github.com/nas7062/typescript-redux/blob/main/public/assets/6.JPG"/>
   <h3>게시글 및 댓글창</h3>
   <img width="500" height="300" src ="https://github.com/nas7062/typescript-redux/blob/main/public/assets/7.JPG"/>
+  <h3>게시글 및 댓글창</h3>
+  <img width="500" height="300" src ="https://github.com/nas7062/typescript-redux/blob/main/public/assets/8.JPG"/>
   
 </div>
 <div>
