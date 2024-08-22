@@ -35,15 +35,15 @@
   <img width="500" height="300" src ="https://github.com/nas7062/typescript-redux/blob/main/public/assets/2.JPG"/>
   <h3>피드 페이지</h3>
   <img width="500" height="300" src ="https://github.com/nas7062/typescript-redux/blob/main/public/assets/3.JPG"/>
- <h3>게시글 및 댓글창</h3>
+ <h3>실시간 채팅 페이지</h3>
   <img width="500" height="300" src ="https://github.com/nas7062/typescript-redux/blob/main/public/assets/4.JPG"/>
-  <h3>게시글 및 댓글창</h3>
+  <h3>찜목록 페이지</h3>
   <img width="500" height="300" src ="https://github.com/nas7062/typescript-redux/blob/main/public/assets/5.JPG"/>
-  <h3>게시글 및 댓글창</h3>
+  <h3>마이 페이지</h3>
   <img width="500" height="300" src ="https://github.com/nas7062/typescript-redux/blob/main/public/assets/6.JPG"/>
-  <h3>게시글 및 댓글창</h3>
+  <h3>로그인 페이지</h3>
   <img width="500" height="300" src ="https://github.com/nas7062/typescript-redux/blob/main/public/assets/7.JPG"/>
-  <h3>게시글 및 댓글창</h3>
+  <h3>디테일 페이지</h3>
   <img width="500" height="300" src ="https://github.com/nas7062/typescript-redux/blob/main/public/assets/8.JPG"/>
   
 </div>
