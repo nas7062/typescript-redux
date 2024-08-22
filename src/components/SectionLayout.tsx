@@ -27,7 +27,7 @@ const FeedSec = styled.div`
 const PartSec = styled.div`
     
     position:relative;
-    left:100px;
+    left:50px;
     width:1700px;
     height:700px;
     background-color:#D2D2FF;
@@ -38,7 +38,7 @@ const PartSec = styled.div`
         height: auto;
     }
 
-    @media (max-width: 1358px) {
+    @media (max-width: 1458px) {
         width: 90%;
         padding: 15px;
     }
@@ -47,7 +47,7 @@ const PartSec = styled.div`
         width: 100%;
         padding: 10px;
     }
-    @media (max-width: 780px) {
+    @media (max-width: 880px) {
         width: 100%;
         padding: 10px;
         
