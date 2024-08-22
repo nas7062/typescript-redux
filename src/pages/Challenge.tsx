@@ -28,7 +28,13 @@ const FormContainer = styled.div`
     background-color: #f9f9f9;
     border-radius: 10px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
-`;
+    @media (max-width: 668px) {
+
+        button {
+            left:250px;
+        }
+    }
+    `;
 
 const FormGroup = styled.div`
     margin-bottom: 15px;
@@ -43,6 +49,13 @@ const FormGroup = styled.div`
         padding: 10px;
         border: 1px solid #ccc;
         border-radius: 5px;
+    }
+         @media (max-width: 668px) {
+
+        input,
+    textarea {
+            width: 70%;
+        }
     }
 `
 

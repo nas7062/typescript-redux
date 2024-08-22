@@ -18,6 +18,7 @@ const Notilist = styled.div`
         text-align :center;
     }
     display:inline;
+    margin:0px auto;
 `
 const NotLinkt = styled.div`
 

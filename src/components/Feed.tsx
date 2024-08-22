@@ -38,6 +38,30 @@ const CardSec = styled.div`
         padding:5px 10px;
         
     }
+    @media (max-width: 568px) {
+        width:150px;
+        height:250px;
+        position:relative;
+        left:-50px;
+        img{
+        width:150px;
+        height:100px;
+        
+    }
+    h2{
+        width:150px;
+        position:relative;
+        text-align:center;
+    }
+    p {
+        position:relative;
+        width:150px;
+        text-align:center;
+    }
+    span{
+       display:none;
+    }
+    }
 `
 const Feed: React.FC<CardProps> = ({ id, img, tag, title, location }) => {
 

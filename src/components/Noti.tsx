@@ -9,7 +9,14 @@ const Table = styled.table`
   border-collapse: collapse;
   text-align: center;
 
-  
+  @media (max-width: 1068px) {
+       width:600px;
+    }
+  @media (max-width: 568px) {
+       width:300px;
+       position:relative;
+       left:-200px;
+    }
 `;
 
 const Thead = styled.thead`

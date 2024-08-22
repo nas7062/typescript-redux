@@ -45,18 +45,15 @@ const PartSec = styled.div`
 
     @media (max-width: 1180px) {
         width: 100%;
-        
         padding: 10px;
     }
     @media (max-width: 780px) {
         width: 100%;
-        
         padding: 10px;
         
     }
     @media (max-width: 580px) {
         left:0px;
-        
     }
     
     button {
