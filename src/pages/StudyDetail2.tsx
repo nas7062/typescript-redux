@@ -52,7 +52,7 @@ const StudyDetail2: React.FC = () => {
     const { data } = useQuery<CardProps[]>({
         queryKey: ["studys"],
         queryFn: fetchStudy,
-    });
+    });  //스터디 데이터를 가져옴 
     const userId = auth.currentUser?.uid;
 
     const study = data?.find(item => item.id === id!);
@@ -60,7 +60,8 @@ const StudyDetail2: React.FC = () => {
     const mutation = useMutation({
         mutationFn: async () => {
             if (userId && study) { // 접속한 유저와 해당 스터디가 있을 시
-                await addStudyParticipation(userId, study.id.toString(), study.title); // 스터디 참여
+                await addStudyParticipation(userId, study.id.toString(), study.title); 
+                // 스터디 참여요청
             } else {
                 throw new Error("유저 ID 또는 스터디 정보를 찾을 수 없습니다.");
             }

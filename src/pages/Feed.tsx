@@ -6,6 +6,9 @@ import styled from "styled-components";
 import { CardProps } from "../components/Card";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { fetchFeeds, addFeed, uploadImage } from "../components/api";
+import { useSelector } from "react-redux";
+import { RootState } from "../store/store";
+import { useNavigate } from "react-router-dom";
 const FeedSec = styled.div`
     
     h2{
@@ -58,12 +61,14 @@ const FormGroup = styled.div`
         }
     }
 `
-
+// Omit 사용 CardProps 타입에서 id 속성을 제외한 새로운 타입을 생성합니다.
 const Feed = () => {
     const [isFormVisible, setFormVisible] = useState(false);
+    const { user } = useSelector((state: RootState) => state.auth);
+    const navigate = useNavigate();
     const [formData, setFormData] = useState<Omit<CardProps, 'id'> & { img2: File | undefined }>({
-        img: "",
-        img2: undefined,
+        img: "", //이미지 주소
+        img2: undefined, //파일객체
         tag: [],
         title: "",
         location: "",
@@ -109,6 +114,14 @@ const Feed = () => {
         }
     };
     const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        if (!user) {
+            const p = confirm('로그인이 필요합니다 로그인 페이지로 이동 하시겠습니까?');
+            if (p) {
+                navigate('/login');
+            }
+            else
+                return;
+        }
         e.preventDefault();
         try {
             await mutation.mutateAsync();

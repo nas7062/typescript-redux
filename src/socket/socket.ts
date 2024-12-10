@@ -9,7 +9,7 @@ export const ConnectToServer = (username: string) => {
         socket = io("https://your-ec2-13.59.107.97:3000", {
             autoConnect: false,
             path: "/socket.io/",
-            query: { username },
+            query: { username }, // 서버에 보낼 쿼리 파라미터로 username을 설정.
             transports: ['websocket']
         },
 
@@ -34,7 +34,7 @@ export const ConnectToServer = (username: string) => {
 
 export const disconnectFromServer = () => {
     if (socket) {
-        socket.disconnect();
+        socket.disconnect(); // 소켓 서버와의 연결을 끊습니다.
         socket = null;
     }
 }

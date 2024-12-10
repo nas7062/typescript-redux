@@ -5,6 +5,7 @@ import './index.css'
 import store from './store/store.js';
 import { QueryClient,QueryClientProvider } from '@tanstack/react-query';
 const queryClient = new QueryClient();
+// QueryClient 생성하여 react-query를 설정s
 ReactDOM.createRoot(document.getElementById('root')!).render(
 
   

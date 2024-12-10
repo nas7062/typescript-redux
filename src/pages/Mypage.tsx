@@ -70,8 +70,8 @@ const Input = styled.input`
 `
 const Mypage: React.FC = () => {
   const [image, setImage] = useState<File | null>(null);
-  const [participations, setParticipations] = useState<any[]>([]);
-  const [goals, setgoals] = useState<any[]>([]);
+  const [participations, setParticipations] = useState<any[]>([]); // 참여 스터디 목록
+  const [goals, setgoals] = useState<any[]>([]);//  참여 챌린지 목록 
   const { user } = useSelector((state: RootState) => state.auth);
   const dispatch = useDispatch();
   const [username, setUsername] = useState(user?.username || '');
@@ -86,17 +86,17 @@ const Mypage: React.FC = () => {
   const handleRemoveParticipation = async (studyId: string) => {
     if (user?.uid) {
       await removeStudyParticipation(user.uid, studyId);
-      setParticipations(participations.filter(p => p.id !== studyId)); 
+      setParticipations(participations.filter(p => p.id !== studyId));
     }
   }; //해당스터디 제거하는 함수 
 
   const handleStudyClick = (studyId: string) => {
-    
-    if (!isNaN(Number(studyId))) 
+
+    if (!isNaN(Number(studyId)))
       navigate(`/study/${studyId}`);
     else
       navigate(`/studys/${studyId}`);
-   
+
   }; // studyId가 숫자인 경우와 그렇지 않은 경우에 따라 다른 경로로 이동
   const handleRemoveGoal = async (Id: string) => {
     if (user?.uid) {
@@ -127,7 +127,7 @@ const Mypage: React.FC = () => {
     uploadTask.on(
       'state_changed',
       () => { },
-      (error) => {console.error(error);},
+      (error) => { console.error(error); },
       async () => {
         const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);   // 업로드 성공 시 다운로드 URL을 가져와 Firestore에 저장
         await updateDoc(doc(db, 'users', user.uid), {

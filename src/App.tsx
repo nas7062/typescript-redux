@@ -32,6 +32,7 @@ import ScrollToTop from './components/ScrollToTop';
 function App() {
 
   const { username, isConnect } = useSelector((state: RootState) => state.chat);
+  // useSelector 사용 store에서 chat 상태의 username과 isConnect 값을 추출
   const dispatch = useDispatch();
   useEffect(() => {
     if (isConnect && username) {
@@ -39,7 +40,8 @@ function App() {
     }
     return () => {
       disconnectFromServer();
-    }
+    } // 언마운트될 때 또는 isConnect나 username이 변경될 때 서버 연결을 해제.
+
   }, [isConnect, username])
 
 
@@ -47,11 +49,12 @@ function App() {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        const userDocRef = doc(db, 'users', user.uid);
-        const userDocSnap = await getDoc(userDocRef);
+        const userDocRef = doc(db, 'users', user.uid); // Firestore에서  사용자의 문서 참조 가져옴.
+        const userDocSnap = await getDoc(userDocRef); // 사용자의 문서
         if (userDocSnap.exists()) {
-          const userData = userDocSnap.data();
+          const userData = userDocSnap.data();  // 문서가 존재할 경우 데이터를 가져엄.
           dispatch(setuser({ uid: user.uid, email: user.email, username: userData.username, profileImage: userData.profileImage }));
+          // 사용자 정보를 setuser에  id,email,username,profileimage를 디스패치함.
         }
       }
       else {

@@ -37,7 +37,6 @@ interface LoginArgs {
 
 type RegisterUserThunk = ReturnType<typeof createAsyncThunk<User, RegisterArgs>>;
 type LoginUserThunk = ReturnType<typeof createAsyncThunk<User, LoginArgs>>;
-
 export const registerUser: RegisterUserThunk = createAsyncThunk<User, RegisterArgs>(
   'auth/registerUser',
   async ({ email, password, username }, { rejectWithValue }) => {
@@ -49,7 +48,7 @@ export const registerUser: RegisterUserThunk = createAsyncThunk<User, RegisterAr
         uid: user.uid,
         email: email,
         username: username,
-      });
+      });  // Firestore에 사용자 문서 저장
 
       return { uid: user.uid, email: user.email, username };
     } catch (error: any) {
@@ -75,7 +74,7 @@ export const loginUser: LoginUserThunk = createAsyncThunk<User, LoginArgs>(
           email: user.email, 
           username: userData.username, 
           profileImage: userData.profileImage 
-        };
+        };  // 사용자 문서가 존재하면 사용자 정보를 반환
       } else {
         return rejectWithValue('User document does not exist');
       }
@@ -90,13 +89,13 @@ const AuthSlice = createSlice({
   initialState,
   reducers: {
     logout(state) {
-      state.user = null;
-      state.isAuthenticated = false;
-      signOut(auth);
-    },
+      state.user = null;// 로그아웃 시 사용자 정보 초기화 
+      state.isAuthenticated = false; //  인증 상태를 false
+      signOut(auth); //firebase 로그아웃
+    }, 
     setuser(state, action) {
       state.user = action.payload;
-      state.isAuthenticated = true;
+      state.isAuthenticated = true; //  인증 상태를 true;
     }
   },
   extraReducers: (builder) => {

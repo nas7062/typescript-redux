@@ -4,8 +4,11 @@ import Header from "../components/Header";
 import styled from "styled-components";
 import { CardProps } from "../components/Card";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import {   uploadImage, fetchChals, addChallenge } from "../components/api";
+import { uploadImage, fetchChals, addChallenge } from "../components/api";
 import GoalList from "../components/GoalList";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { RootState } from "../store/store";
 const FeedSec = styled.div`
     
     h2{
@@ -61,6 +64,8 @@ const FormGroup = styled.div`
 
 const Challenge = () => {
     const [isFormVisible, setFormVisible] = useState(false);
+    const { user } = useSelector((state: RootState) => state.auth);
+    const navigate = useNavigate();
     const [formData, setFormData] = useState<Omit<CardProps, 'id'> & { img2: File | undefined }>({
         img: "",
         img2: undefined,
@@ -107,10 +112,18 @@ const Challenge = () => {
         if (file) {
             setFormData({ ...formData, img2: file });
         }
-       
+
     };
-    
+
     const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        if (!user) {
+            const p = confirm('로그인이 필요합니다 로그인 페이지로 이동 하시겠습니까?');
+            if (p) {
+                navigate('/login');
+            }
+            else
+                return;
+        }
         e.preventDefault();
         try {
             await mutation.mutateAsync();
@@ -178,9 +191,9 @@ const Challenge = () => {
                             <button type="submit">제출</button>
                         </form>
                     </FormContainer>
-                    
+
                 )}
-                <GoalList goals={data || []}/>
+                <GoalList goals={data || []} />
             </FeedSec>
             <Footer />
         </>
