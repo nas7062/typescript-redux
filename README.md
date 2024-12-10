@@ -3,11 +3,11 @@
   <h2>시작가이드</h2>
  
     npm i 
-    npm start
+    npm run dev
 
    <h2> 서버요청</h2>
    
-   node src/server/server.js
+  npm start
 
 </div>
 <div>
